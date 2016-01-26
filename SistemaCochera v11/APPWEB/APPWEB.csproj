@@ -71,6 +71,7 @@
     <Content Include="Garage\index.aspx" />
     <Content Include="Garage\mensuales.aspx" />
     <Content Include="Garage\nuevomensual.aspx" />
+    <Content Include="Garage\pagotransferencia.aspx" />
     <Content Include="Garage\test.aspx" />
     <Content Include="Garage\vehiculos.aspx" />
     <Content Include="Garage\vermensual.aspx" />
@@ -195,6 +196,13 @@
     </Compile>
     <Compile Include="Garage\nuevomensual.aspx.designer.cs">
       <DependentUpon>nuevomensual.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Garage\pagotransferencia.aspx.cs">
+      <DependentUpon>pagotransferencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Garage\pagotransferencia.aspx.designer.cs">
+      <DependentUpon>pagotransferencia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Garage\test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>

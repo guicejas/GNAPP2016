@@ -14,6 +14,8 @@ protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                int nro = Convert.ToInt32(Request.QueryString["MensualId"]);
+
                 listTipoMensualidad.Items.Add("24HS");
                 listTipoMensualidad.Items.Add("DIURNO");
                 listTipoMensualidad.Items.Add("NOCTURNO");
@@ -22,7 +24,7 @@ protected void Page_Load(object sender, EventArgs e)
                 listTipoFactura.Items.Add("B");
 
 
-                MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(1);
+                MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(nro);
  
                 txtCodigo.Text = editMensual.Codigo.ToString();
                 txtNombreyApellido.Text = editMensual.NombreApellido;

@@ -18,7 +18,7 @@
         <ol class="breadcrumb">
             <li><a href="index.aspx">Inicio</a></li>
             <li><a href="mensuales.aspx">Mensuales</a></li>
-            <li class="active">Nuevo Mensual</li>
+            <li class="active">Ver Mensual</li>
         </ol>
     </div>
     <h3>
@@ -138,17 +138,21 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="groupNumericos"
                         ErrorMessage="Ingrese un nombre de mensual" CssClass="label label-danger" ControlToValidate="txtNombreyApellido"></asp:RequiredFieldValidator>
                 </div>
-                <div class="col-lg-10 col-lg-offset-2">
-                    <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" OnClick="btnCancelar_Click"
-                        CssClass="btn btn-default" Enabled="false" AutoPostBack="true" CausesValidation="false" />
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6">
+                    <div class="col-lg-10 col-lg-offset-2">
                     <asp:Button runat="server" ID="btnEditar" Text="Editar" OnClick="btnEditar_Click"
                         CssClass="btn btn-default" AutoPostBack="true" CausesValidation="false" />
                     <asp:Button runat="server" ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click"
                         CssClass="btn btn-success" Enabled="false" AutoPostBack="true" ValidationGroup="groupNumericos"
                         OnClientClick="return validateAndConfirm('¿Estas seguro que desea modificar los datos del mensual?');" />
+                        <br /><br />
+                                            <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" OnClick="btnCancelar_Click"
+                        CssClass="btn btn-default" Enabled="false" AutoPostBack="true" CausesValidation="false" />
                 </div>
-            </fieldset>
-        </div>
     </div>
     </form>
 </asp:Content>
