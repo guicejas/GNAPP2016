@@ -165,8 +165,8 @@
             </asp:GridView>
 
                     <blockquote class="pull-right">
-            <div class="text-success h4">Ultimo mes pago: $ <span id="txtUltimoMesPago" runat="server"></span></div>
-            <div class="text-success h4">Fecha ultimo pago: $ <span id="txtFechaUltimoMesPago" runat="server"></span></div>
+            <div class="text-success h4">Ultimo mes pago: <span id="txtUltimoMesPago" runat="server"></span></div>
+            <div class="text-success h4">Fecha ultimo pago: <span id="txtFechaUltimoMesPago" runat="server"></span></div>
         </blockquote>
         <br />
         </div>

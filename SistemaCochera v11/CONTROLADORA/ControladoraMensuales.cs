@@ -81,6 +81,24 @@ namespace CONTROLADORA
             MODELO.Contexto.ObtenerInstancia().Refresh(RefreshMode.StoreWins, oPagoMensual);
         }
 
+        public static void AgregarPagoMensualTransferencia(MODELO.Mensual oMensual, int mes, decimal monto, DateTime fecha)
+        {
+            MODELO.PagoMensual oPagoMensual = new MODELO.PagoMensual();
+            oPagoMensual.Monto = monto;
+            oPagoMensual.Fecha = fecha;
+            oPagoMensual.MesSaldado = mes;
+            oPagoMensual.Mensual = oMensual;
+
+            //VER: CAJA DEBERIA SER NULL
+            oPagoMensual.Caja.Id = 0;
+
+            MODELO.Contexto.ObtenerInstancia().AddToPagoMensuales(oPagoMensual);
+
+            MODELO.Contexto.ObtenerInstancia().SaveChanges();
+            MODELO.Contexto.ObtenerInstancia().DetectChanges();
+            MODELO.Contexto.ObtenerInstancia().Refresh(RefreshMode.StoreWins, oPagoMensual);
+        }
+
         public static int ProximoCodigo()
         {
             MODELO.Mensual oMensual = MODELO.Contexto.ObtenerInstancia().Mensuales.OrderByDescending(m => m.id).FirstOrDefault();

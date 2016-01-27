@@ -44,6 +44,16 @@ namespace APPWEB.Garage
 
                 GridHistorialPagos.DataSource = CONTROLADORA.ControladoraMensuales.ListarPagosMensuales(editMensual);
                 GridHistorialPagos.DataBind();
+
+                try
+                {
+                    txtUltimoMesPago.InnerText = editMensual.PagoMensual.Last().MesSaldado.ToString();
+                    txtFechaUltimoMesPago.InnerText = editMensual.PagoMensual.Last().Fecha.Date.ToShortDateString();
+                }
+                catch
+                {
+                }
+
             }
 
 
