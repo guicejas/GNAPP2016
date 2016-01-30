@@ -9,6 +9,18 @@
             }
         }
     </script>
+      <script>
+          function Calendario() {
+              $(function () {
+                  $(".calendario").datepicker({
+                      dateFormat: "dd/mm/yy",
+                      changeMonth: true,
+                      changeYear: true,
+                      showAnim: "slideDown"
+                  });
+              });
+          }
+  </script>
     <form id="Form1" runat="server">
     <div class="br">
     </div>
@@ -31,7 +43,7 @@
                     <label for="txtFechadePago" class="col-lg-2 control-label">
                         Fecha del Pago</label>
                     <div class="col-lg-10">
-                        <asp:TextBox ID="txtFechadePago" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtFechadePago" runat="server" CssClass="calendario form-control"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">

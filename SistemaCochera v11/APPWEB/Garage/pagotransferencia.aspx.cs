@@ -33,12 +33,13 @@ namespace APPWEB.Garage
                     }
                     txtMesPagado.Text = (mesPagado + 1).ToString();
 
-                    txtMontoAbonado.Value = editMensual.PrecioSugerido.ToString();
-
                 }
                 catch
                 {
                 }
+
+                try { txtMontoAbonado.Value = editMensual.PrecioSugerido.ToString(); }
+                catch { }
 
 
             }
@@ -57,7 +58,9 @@ namespace APPWEB.Garage
             {
                 CONTROLADORA.ControladoraMensuales.AgregarPagoMensualTransferencia(oMensual, Convert.ToInt32(txtMesPagado.Text), Convert.ToDecimal(txtMontoAbonado.Value), Convert.ToDateTime(txtFechadePago.Text));
 
+                Response.Redirect("mensuales.aspx");
             }
+
 
 
         }

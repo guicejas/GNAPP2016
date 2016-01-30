@@ -146,7 +146,7 @@
     <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Monto" Type="decimal" Nullable="false" Precision="10" Scale="2" />
     <Property Name="MesSaldado" Type="int" Nullable="true" />
-    <Property Name="Caja_Id" Type="int" Nullable="false" />
+    <Property Name="Caja_Id" Type="int" Nullable="true" />
     <Property Name="Mensual_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Recordatorios">
@@ -193,7 +193,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="CajaPagoMensual">
-    <End Role="Caja" Type="CocheraModelo.Store.Cajas" Multiplicity="1" />
+    <End Role="Caja" Type="CocheraModelo.Store.Cajas" Multiplicity="0..1" />
     <End Role="PagoMensual" Type="CocheraModelo.Store.PagoMensuales" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Caja">
@@ -389,7 +389,7 @@
           <Property Type="String" Name="Mensaje" Nullable="true" />
         </EntityType>
         <Association Name="CajaPagoMensual">
-          <End Type="CocheraModelo.Caja" Role="Caja" Multiplicity="1" />
+          <End Type="CocheraModelo.Caja" Role="Caja" Multiplicity="0..1" />
           <End Type="CocheraModelo.PagoMensual" Role="PagoMensual" Multiplicity="*" />
         </Association>
         <Association Name="MensualPagoMensual">
@@ -558,6 +558,7 @@
       <EndProperty Name="PagoMensual">
         <ScalarProperty Name="id" ColumnName="id" />
       </EndProperty>
+      <Condition ColumnName="Caja_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="MensualPagoMensual" TypeName="CocheraModelo.MensualPagoMensual" StoreEntitySet="PagoMensuales">
       <EndProperty Name="Mensual">

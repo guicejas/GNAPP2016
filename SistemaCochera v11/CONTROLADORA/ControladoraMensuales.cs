@@ -90,7 +90,7 @@ namespace CONTROLADORA
             oPagoMensual.Mensual = oMensual;
 
             //VER: CAJA DEBERIA SER NULL
-            oPagoMensual.Caja.Id = 0;
+            //oPagoMensual.Caja.Id = 0;
 
             MODELO.Contexto.ObtenerInstancia().AddToPagoMensuales(oPagoMensual);
 

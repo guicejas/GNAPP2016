@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/14/2015 20:35:12
--- Generated from EDMX file: C:\Users\Guille\Desktop\COCHERA\APP 2015\SistemaCochera v10\MODELO\CocheraModelo.edmx
+-- Date Created: 01/29/2016 18:04:03
+-- Generated from EDMX file: C:\GNAPP2016\SistemaCochera v11\MODELO\CocheraModelo.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -177,7 +177,7 @@ CREATE TABLE [dbo].[PagoMensuales] (
     [Fecha] datetime  NOT NULL,
     [Monto] decimal(10,2)  NOT NULL,
     [MesSaldado] int  NULL,
-    [Caja_Id] int  NOT NULL,
+    [Caja_Id] int  NULL,
     [Mensual_id] int  NOT NULL
 );
 GO

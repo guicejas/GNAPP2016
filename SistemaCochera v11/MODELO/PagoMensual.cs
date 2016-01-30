@@ -41,7 +41,12 @@ namespace MODELO
         {
             get
             {
-                return (int)this.Caja.NroCaja;
+                try
+                {
+                    return (int)this.Caja.NroCaja;
+                }
+                catch
+                { return 000; }
             }
         }
 

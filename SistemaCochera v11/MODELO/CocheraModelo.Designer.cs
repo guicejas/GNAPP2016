@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region Metadatos de relaciones en EDM
@@ -21,7 +22,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CocheraModelo", "VehiculoClase", "Vehiculo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MODELO.Vehiculo), "Clase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(MODELO.Clase))]
 [assembly: EdmRelationshipAttribute("CocheraModelo", "VehiculoCaja", "Vehiculo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MODELO.Vehiculo), "Caja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MODELO.Caja))]
 [assembly: EdmRelationshipAttribute("CocheraModelo", "DescuentoCaja", "Descuento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MODELO.Descuento), "Caja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(MODELO.Caja))]
-[assembly: EdmRelationshipAttribute("CocheraModelo", "CajaPagoMensual", "Caja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(MODELO.Caja), "PagoMensual", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MODELO.PagoMensual))]
+[assembly: EdmRelationshipAttribute("CocheraModelo", "CajaPagoMensual", "Caja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MODELO.Caja), "PagoMensual", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MODELO.PagoMensual))]
 [assembly: EdmRelationshipAttribute("CocheraModelo", "MensualPagoMensual", "Mensual", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(MODELO.Mensual), "PagoMensual", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MODELO.PagoMensual))]
 
 #endregion
@@ -219,6 +220,7 @@ namespace MODELO
         private ObjectSet<Recordatorio> _Recordatorios;
 
         #endregion
+
         #region Métodos AddTo
     
         /// <summary>
@@ -294,11 +296,11 @@ namespace MODELO
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entidades
     
     /// <summary>
@@ -325,6 +327,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -451,6 +454,7 @@ namespace MODELO
         partial void OnNroCajaChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -521,6 +525,7 @@ namespace MODELO
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -553,6 +558,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -775,6 +781,7 @@ namespace MODELO
         partial void OnActivoChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -801,6 +808,7 @@ namespace MODELO
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -827,6 +835,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -881,6 +890,7 @@ namespace MODELO
         partial void OnMontoChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -923,6 +933,7 @@ namespace MODELO
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -951,6 +962,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -1245,6 +1257,7 @@ namespace MODELO
         partial void OnPie5Changed();
 
         #endregion
+
     
     }
     
@@ -1274,6 +1287,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -1688,6 +1702,7 @@ namespace MODELO
         partial void OnObservacionesChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -1714,6 +1729,7 @@ namespace MODELO
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1742,6 +1758,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -1844,6 +1861,7 @@ namespace MODELO
         partial void OnMesSaldadoChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -1924,6 +1942,7 @@ namespace MODELO
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1948,6 +1967,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -2002,6 +2022,7 @@ namespace MODELO
         partial void OnMensajeChanged();
 
         #endregion
+
     
     }
     
@@ -2035,6 +2056,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -2281,6 +2303,7 @@ namespace MODELO
         partial void OnpasswordWebChanged();
 
         #endregion
+
     
     }
     
@@ -2312,6 +2335,7 @@ namespace MODELO
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -2534,6 +2558,7 @@ namespace MODELO
         partial void OnTelefonoChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -2614,8 +2639,10 @@ namespace MODELO
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }
