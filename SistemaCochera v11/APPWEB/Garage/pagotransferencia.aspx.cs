@@ -21,7 +21,7 @@ namespace APPWEB.Garage
                 MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(nro);
 
                 lblTitulo.InnerText = editMensual.Codigo + " - " + editMensual.NombreApellido;
-                txtFechadePago.Text = DateTime.Today.ToShortDateString();
+                txtFechadePago.Value = DateTime.Today.ToShortDateString();
 
 
                 try
@@ -54,9 +54,9 @@ namespace APPWEB.Garage
             MODELO.Mensual oMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(nro);
 
 
-            if (oMensual.id.ToString().Length > 0 && txtMesPagado.Text.Length > 0 && txtMontoAbonado.Value.Length > 0 && txtFechadePago.Text.Length > 0)
+            if (oMensual.id.ToString().Length > 0 && txtMesPagado.Text.Length > 0 && txtMontoAbonado.Value.Length > 0 && txtFechadePago.Value.Length > 0)
             {
-                CONTROLADORA.ControladoraMensuales.AgregarPagoMensualTransferencia(oMensual, Convert.ToInt32(txtMesPagado.Text), Convert.ToDecimal(txtMontoAbonado.Value), Convert.ToDateTime(txtFechadePago.Text));
+                CONTROLADORA.ControladoraMensuales.AgregarPagoMensualTransferencia(oMensual, Convert.ToInt32(txtMesPagado.Text), Convert.ToDecimal(txtMontoAbonado.Value), Convert.ToDateTime(txtFechadePago.Value));
 
                 Response.Redirect("mensuales.aspx");
             }

@@ -8,8 +8,7 @@
                 return confirm(message);
             }
         }
-    </script>
-      <script>
+
           function Calendario() {
               $(function () {
                   $(".calendario").datepicker({
@@ -43,7 +42,7 @@
                     <label for="txtFechadePago" class="col-lg-2 control-label">
                         Fecha del Pago</label>
                     <div class="col-lg-10">
-                        <asp:TextBox ID="txtFechadePago" runat="server" CssClass="calendario form-control"></asp:TextBox>
+                    <input type="text" runat="server" id="txtFechadePago" class="calendario form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
