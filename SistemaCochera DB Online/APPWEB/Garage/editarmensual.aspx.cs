@@ -39,6 +39,10 @@ protected void Page_Load(object sender, EventArgs e)
                 txtPrecioMensualidad.Value = editMensual.PrecioSugerido.ToString();
                 listTipoMensualidad.SelectedValue = editMensual.TipoMensual;
                 txtObservaciones.Value = editMensual.Observaciones;
+
+                linkProxMensual.HRef = "editarmensual.aspx?MensualId=" + CONTROLADORA.ControladoraMensuales.ProxMensual(editMensual);
+                linkPrevMensual.HRef = "editarmensual.aspx?MensualId=" + CONTROLADORA.ControladoraMensuales.PrevMensual(editMensual);
+                spanMensual.InnerText = editMensual.NombreApellido;
             }
 
 

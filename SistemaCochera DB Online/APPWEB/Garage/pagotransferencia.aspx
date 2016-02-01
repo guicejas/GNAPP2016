@@ -69,8 +69,13 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ValidationGroup="groupNumericos"
                         ErrorMessage="Ingrese el monto abonado" CssClass="label label-danger"
                         ControlToValidate="txtMontoAbonado"></asp:RequiredFieldValidator>
+                    
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ValidationGroup="groupNumericos"
+                        runat="server" ValidationExpression="^(((0{0,1}[1-9]|[12][0-9]|3[01])([/])(0{0,1}[13578]|10|12)([/])(\d{4}))|((0{0,1}[1-9]|[12][0-9]|30)([/])(0{0,1}[469]|11)([/])(\d{4}))|((0{0,1}[1-9]|1[0-9]|2[0-8])([/])(0{0,1}2)([/])(\d{4}))|((29)(\.|-|\/)(0{0,1}2)([/])([02468][048]00))|((29)([/])(0{0,1}2)([/])([13579][26]00))|((29)([/])(0{0,1}2)([/])([0-9][0-9][0][48]))|((29)([/])(0{0,1}2)([/])([0-9][0-9][2468][048]))|((29)([/])(0{0,1}2)([/])([0-9][0-9][13579][26])))$" ErrorMessage="Ingrese una fecha en formato dd/mm/aaaa."
+                        CssClass="label label-danger" ControlToValidate="txtFechadePago" />
+                    
                     <asp:RegularExpressionValidator ID="validation1" ValidationGroup="groupNumericos"
-                        runat="server" ValidationExpression="((\d+)((\,\d{1,2})?))$" ErrorMessage="Ingrese un monto numérico para el monto abonado."
+                        runat="server" ValidationExpression="((\d+)(((\,|\.)\d{1,2})?))$" ErrorMessage="Ingrese un monto numérico para el monto abonado."
                         CssClass="label label-danger" ControlToValidate="txtMontoAbonado" />
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="groupNumericos"

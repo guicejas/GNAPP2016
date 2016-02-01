@@ -27,7 +27,7 @@
     <div class="form-group col-sm-6">
         <div class="form-horizontal">
             <fieldset>
-                <legend><span>Mensual</span></legend>
+                <legend><a runat="server" id="linkPrevMensual" href="#"> <i class="fa fa-long-arrow-left"></i> </a><span runat="server" id="spanMensual"> Mensual </span><a runat="server" id="linkProxMensual" href="#"> <i class="fa fa-long-arrow-right"> </i></a></legend>
                 <div class="form-group">
                     <label for="txtCodigo" class="col-lg-2 control-label">
                         CODIGO</label>

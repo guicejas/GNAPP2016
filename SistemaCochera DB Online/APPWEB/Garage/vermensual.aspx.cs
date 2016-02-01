@@ -54,6 +54,10 @@ namespace APPWEB.Garage
                 {
                 }
 
+                linkProxMensual.HRef = "vermensual.aspx?MensualId=" + CONTROLADORA.ControladoraMensuales.ProxMensual(editMensual);
+                linkPrevMensual.HRef = "vermensual.aspx?MensualId=" + CONTROLADORA.ControladoraMensuales.PrevMensual(editMensual);
+                spanMensual.InnerText = editMensual.NombreApellido;
+
             }
 
 

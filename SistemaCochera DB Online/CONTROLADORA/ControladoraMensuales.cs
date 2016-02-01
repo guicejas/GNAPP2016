@@ -132,5 +132,33 @@ namespace CONTROLADORA
             return Filtrado;
         }
 
+        public static int ProxMensual(MODELO.Mensual oMensual)
+        {
+            List<MODELO.Mensual> ListaMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.ToList();
+
+            try
+            {
+                int index = ListaMensuales.IndexOf(oMensual);
+                int idSig = ListaMensuales[index + 1].id;
+                return (idSig);
+            }
+            catch
+            { return ListaMensuales.FirstOrDefault().id; }
+        }
+
+        public static int PrevMensual(MODELO.Mensual oMensual)
+        {
+            List<MODELO.Mensual> ListaMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.ToList();
+
+            try
+            {
+                int index = ListaMensuales.IndexOf(oMensual);
+                int idSig = ListaMensuales[index - 1].id;
+                return (idSig);
+            }
+            catch
+            { return ListaMensuales.LastOrDefault().id; }
+        }
+
     }
 }
