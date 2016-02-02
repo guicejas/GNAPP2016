@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Objects;
 using System.Data;
+using System.Net.Mail;
 
 namespace CONTROLADORA
 {
@@ -79,6 +80,8 @@ namespace CONTROLADORA
             MODELO.Contexto.ObtenerInstancia().SaveChanges();
             MODELO.Contexto.ObtenerInstancia().DetectChanges();
             MODELO.Contexto.ObtenerInstancia().Refresh(RefreshMode.StoreWins, oPagoMensual);
+
+            EnviarMaildePago(oPagoMensual);
         }
 
         public static void AgregarPagoMensualTransferencia(MODELO.Mensual oMensual, int mes, decimal monto, DateTime fecha)
@@ -158,6 +161,36 @@ namespace CONTROLADORA
             }
             catch
             { return ListaMensuales.LastOrDefault().id; }
+        }
+
+        public static void EnviarMaildePago(MODELO.PagoMensual oPago)
+        {
+
+            MailMessage correo = new MailMessage();
+            correo.IsBodyHtml = true;
+            correo.From = new MailAddress("trypep.sisflotaxis@gmail.com");
+            correo.To.Add("guillecejas@hotmail.com");
+            correo.Subject = "Nuevo pago Registrado: " + oPago.Mensual.NombreApellido.ToString();
+            correo.Body = "<h2>SISTEMA GARAGE NADIA ONLINE</h2><br> El siguiente mensual: " + oPago.Mensual.NombreApellido.ToString() + " (" + oPago.Mensual.Codigo + "), ha abonado el total de $ " + oPago.Monto.ToString() + " en día " + oPago.Fecha.ToShortDateString() + " en concepto del mes de " + oPago.MesSaldado.ToString() + ".<br>El dinero se encuentra en la caja nro" + oPago.NroCaja + ".<br><br><br> <center><font color='grey' size='2'><hr> <br> La información que contiene este email, incluidos sus archivos adjuntos, es confidencial, y sólo para conocimiento y uso de las personas a las cuales está dirigida. Si por error recibe este correo, le rogamos aceptar nuestras disculpas y, al mismo tiempo, le solicitamos notificarlo a la persona que lo envió, abstenerse de divulgar su contenido y borrarlo de inmediato. <br> <b><i>GARAGE NADIA</i></b></font></center><br>";
+
+            SmtpClient cliente = new SmtpClient("smtp.gmail.com");
+            cliente.Port = 587;
+            cliente.Credentials = new System.Net.NetworkCredential("trypep.sisflotaxis@gmail.com", "trypeptaxis");
+            cliente.EnableSsl = true;
+
+            try
+            {
+                cliente.Send(correo);
+                correo.Dispose();
+                //return "El usuario a sido creado correctamente, el password ha sido enviado a: " + oUsuario.Email.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                //return "Error al enviar el correo electronico." + ex.Message;
+
+            }
+
         }
 
     }

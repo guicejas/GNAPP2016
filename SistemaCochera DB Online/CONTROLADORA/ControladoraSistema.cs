@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 
+
 namespace CONTROLADORA
 {
     public class ControladoraSistema
@@ -26,5 +27,6 @@ namespace CONTROLADORA
             MODELO.Contexto.ObtenerInstancia().SaveChanges();
             MODELO.Contexto.ObtenerInstancia().DetectChanges();
         }
+
     }
 }
