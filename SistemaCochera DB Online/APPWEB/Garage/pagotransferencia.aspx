@@ -77,6 +77,11 @@
                     <asp:RegularExpressionValidator ID="validation1" ValidationGroup="groupNumericos"
                         runat="server" ValidationExpression="((\d+)(((\,|\.)\d{1,2})?))$" ErrorMessage="Ingrese un monto numérico para el monto abonado."
                         CssClass="label label-danger" ControlToValidate="txtMontoAbonado" />
+
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ValidationGroup="groupNumericos"
+                        runat="server" ValidationExpression="(0{0,1}[123456789]|10|11|12)$" ErrorMessage="Ingrese el número del mes abonado."
+                        CssClass="label label-danger" ControlToValidate="txtMesPagado" />
+
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="groupNumericos"
                         ErrorMessage="Ingrese una fecha pago" CssClass="label label-danger" ControlToValidate="txtFechadePago"></asp:RequiredFieldValidator>
@@ -86,7 +91,6 @@
                 </div>
             </fieldset>
         </div>
-    </div>
 
     <div class="form-group col-sm-6">
                     <div class="col-lg-10 col-lg-offset-2">

@@ -60,6 +60,18 @@ namespace CONTROLADORA
             return oMensual;
         }
 
+        public static MODELO.Mensual BuscarMensualID(int id)
+        {
+
+            MODELO.Mensual oMensual = MODELO.Contexto.ObtenerInstancia().Mensuales.Where(x => x.Activo == true).FirstOrDefault(c => c.id == id);
+            try
+            {
+                MODELO.Contexto.ObtenerInstancia().Refresh(RefreshMode.StoreWins, oMensual);
+            }
+            catch { }
+            return oMensual;
+        }
+
         public static void AgregarPagoMensual(MODELO.Mensual oMensual, int mes, decimal monto)
         {
             MODELO.PagoMensual oPagoMensual = new MODELO.PagoMensual();
@@ -81,7 +93,12 @@ namespace CONTROLADORA
             MODELO.Contexto.ObtenerInstancia().DetectChanges();
             MODELO.Contexto.ObtenerInstancia().Refresh(RefreshMode.StoreWins, oPagoMensual);
 
-            EnviarMaildePago(oPagoMensual);
+            try
+            {
+                EnviarMaildePago(oPagoMensual);
+            }
+            catch
+            { }
         }
 
         public static void AgregarPagoMensualTransferencia(MODELO.Mensual oMensual, int mes, decimal monto, DateTime fecha)
@@ -137,7 +154,7 @@ namespace CONTROLADORA
 
         public static int ProxMensual(MODELO.Mensual oMensual)
         {
-            List<MODELO.Mensual> ListaMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.ToList();
+            List<MODELO.Mensual> ListaMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.Where(x => x.Activo == true).ToList();
 
             try
             {
@@ -151,7 +168,7 @@ namespace CONTROLADORA
 
         public static int PrevMensual(MODELO.Mensual oMensual)
         {
-            List<MODELO.Mensual> ListaMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.ToList();
+            List<MODELO.Mensual> ListaMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.Where(x => x.Activo == true).ToList();
 
             try
             {
@@ -168,14 +185,14 @@ namespace CONTROLADORA
 
             MailMessage correo = new MailMessage();
             correo.IsBodyHtml = true;
-            correo.From = new MailAddress("trypep.sisflotaxis@gmail.com");
-            correo.To.Add("guillecejas@hotmail.com");
+            correo.From = new MailAddress("infogaragenadia@gmail.com");
+            correo.To.Add("infogaragenadia@gmail.com");
             correo.Subject = "Nuevo pago Registrado: " + oPago.Mensual.NombreApellido.ToString();
-            correo.Body = "<h2>SISTEMA GARAGE NADIA ONLINE</h2><br> El siguiente mensual: " + oPago.Mensual.NombreApellido.ToString() + " (" + oPago.Mensual.Codigo + "), ha abonado el total de $ " + oPago.Monto.ToString() + " en día " + oPago.Fecha.ToShortDateString() + " en concepto del mes de " + oPago.MesSaldado.ToString() + ".<br>El dinero se encuentra en la caja nro" + oPago.NroCaja + ".<br><br><br> <center><font color='grey' size='2'><hr> <br> La información que contiene este email, incluidos sus archivos adjuntos, es confidencial, y sólo para conocimiento y uso de las personas a las cuales está dirigida. Si por error recibe este correo, le rogamos aceptar nuestras disculpas y, al mismo tiempo, le solicitamos notificarlo a la persona que lo envió, abstenerse de divulgar su contenido y borrarlo de inmediato. <br> <b><i>GARAGE NADIA</i></b></font></center><br>";
+            correo.Body = "<h3>SISTEMA GARAGE NADIA ONLINE</h3><br> El siguiente mensual: " + oPago.Mensual.NombreApellido.ToString() + " (" + oPago.Mensual.Codigo + "), ha abonado el total de $ " + oPago.Monto.ToString() + " el día " + oPago.Fecha.ToShortDateString() + " en concepto del mes: " + oPago.MesSaldado.ToString() + ".<br><br>El pago se encuentra registrado en la caja nro: " + oPago.NroCaja + ".<br><br><br> <center><font color='grey' size='2'><hr> <br> La información que contiene este email, incluidos sus archivos adjuntos, es confidencial, y sólo para conocimiento y uso de las personas a las cuales está dirigida. Si por error recibe este correo, le rogamos aceptar nuestras disculpas y, al mismo tiempo, le solicitamos notificarlo a la persona que lo envió, abstenerse de divulgar su contenido y borrarlo de inmediato. <br> <b><i>GARAGE NADIA</i></b></font></center><br>";
 
             SmtpClient cliente = new SmtpClient("smtp.gmail.com");
             cliente.Port = 587;
-            cliente.Credentials = new System.Net.NetworkCredential("trypep.sisflotaxis@gmail.com", "trypeptaxis");
+            cliente.Credentials = new System.Net.NetworkCredential("infogaragenadia@gmail.com", "nadiagarage440");
             cliente.EnableSsl = true;
 
             try

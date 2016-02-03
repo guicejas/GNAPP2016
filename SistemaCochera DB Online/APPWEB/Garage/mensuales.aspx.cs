@@ -64,7 +64,7 @@ namespace APPWEB.Garage
         protected void GridMensuales_RowEditing(object sender, GridViewEditEventArgs e)
         {
             string mensualId = this.GridMensuales.Rows[e.NewEditIndex].Cells[0].Text;
-            Response.Redirect("editarmensual.aspx?MensualId=" + mensualId);
+            Response.Redirect("pagotransferencia.aspx?MensualId=" + mensualId);
         }
 
         protected void SelectedIndexChanging(object sender, GridViewSelectEventArgs e)

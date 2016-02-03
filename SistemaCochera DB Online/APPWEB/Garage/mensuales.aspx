@@ -126,22 +126,22 @@
                     </EmptyDataTemplate>
                     <Columns>
                         <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Codigo" HeaderText="Codigo" />
-                        <asp:BoundField DataField="NombreApellido" HeaderText="Nombre y Apellido" />
+                        <asp:BoundField DataField="NombreApellido" HeaderText="Nombre y Apellido"  />
                         <asp:BoundField DataField="RazonSocial" HeaderText="Razon Social" />
                         <asp:BoundField DataField="Vehiculo" HeaderText="Vehiculo" />
                         <asp:BoundField DataField="Patente" HeaderText="Patente" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="TipoMensual" HeaderText="Tipo" />
                         <asp:TemplateField ShowHeader="True" HeaderText="Ver">
                         <ItemTemplate>
-                            <asp:LinkButton runat="server" CommandName="Select" CausesValidation="False" ID="linkVer"><img src="../Img/search.png" alt="Ver Mensual" /></asp:LinkButton>
+                            <asp:LinkButton runat="server" CommandName="Select" CausesValidation="False" ID="linkVer"><img src="../Img/search.png" alt="Ver" /></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
-                        <asp:CommandField ShowEditButton="True" EditImageUrl="~/Img/edit.png" HeaderText="Editar" ButtonType="Image" />
                         <asp:TemplateField ShowHeader="True" HeaderText="Borrar">
                         <ItemTemplate>
-                            <asp:LinkButton runat="server" CommandName="Delete" CausesValidation="False" ID="linkBorrar" OnClientClick="return confirm('Estas seguro que deseas eliminar este mensual?');"><img src="../Img/delete.png" alt="Borrar Mensual" /></asp:LinkButton>
+                            <asp:LinkButton runat="server" CommandName="Delete" CausesValidation="False" ID="linkBorrar" OnClientClick="return confirm('Estas seguro que deseas eliminar este mensual?');"><img src="../Img/delete.png" alt="Borrar" /></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:CommandField ShowEditButton="True" EditImageUrl="~/Img/dollar.png" HeaderText=" Pago " ButtonType="Image"/>
                     </Columns>
                     <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White"></HeaderStyle>
                     <PagerStyle BackColor="#284775" ForeColor="White" Font-Size="X-Large" Wrap="true"

@@ -24,7 +24,7 @@ protected void Page_Load(object sender, EventArgs e)
                 listTipoFactura.Items.Add("B");
 
 
-                MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(nro);
+                MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensualID(nro);
  
                 txtCodigo.Text = editMensual.Codigo.ToString();
                 txtNombreyApellido.Text = editMensual.NombreApellido;

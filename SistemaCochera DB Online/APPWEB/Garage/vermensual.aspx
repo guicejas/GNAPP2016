@@ -24,16 +24,15 @@
     <h3>
         Ver Mensual</h3>
     <br />
-    <div class="form-group col-sm-6">
+   <div class="form-group col-sm-6">
         <div class="form-horizontal">
             <fieldset>
                 <legend><a runat="server" id="linkPrevMensual" href="#"> <i class="fa fa-long-arrow-left"></i> </a><span runat="server" id="spanMensual"> Mensual </span><a runat="server" id="linkProxMensual" href="#"> <i class="fa fa-long-arrow-right"> </i></a></legend>
                 <div class="form-group">
-                <div class="form-group">
                     <label for="txtCodigo" class="col-lg-2 control-label">
                         CODIGO</label>
                     <div class="col-lg-10">
-                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control " Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">
@@ -133,16 +132,28 @@
                         ErrorMessage="Ingrese un precio de mensualidad" CssClass="label label-danger"
                         ControlToValidate="txtPrecioMensualidad"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="validation1" ValidationGroup="groupNumericos"
-                        runat="server" ValidationExpression="((\d+)((\,\d{1,2})?))$" ErrorMessage="Ingrese un monto numérico para el precio."
+                        runat="server" ValidationExpression="((\d+)(((\,|\.)\d{1,2})?))$" ErrorMessage="Ingrese un monto numérico para el precio."
                         CssClass="label label-danger" ControlToValidate="txtPrecioMensualidad" />
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="groupNumericos"
                         ErrorMessage="Ingrese un nombre de mensual" CssClass="label label-danger" ControlToValidate="txtNombreyApellido"></asp:RequiredFieldValidator>
                 </div>
+                <div class="col-lg-10 col-lg-offset-2">
+                    <asp:Button runat="server" ID="btnEditar" Text="Editar" OnClick="btnEditar_Click"
+                        CssClass="btn btn-default" AutoPostBack="true" CausesValidation="false" />
+                    <asp:Button runat="server" ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click"
+                        CssClass="btn btn-success" Enabled="false" AutoPostBack="true" ValidationGroup="groupNumericos"
+                        OnClientClick="return validateAndConfirm('¿Estas seguro que desea modificar los datos del mensual?');" />
+                        <br /><br />
+                                            <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" OnClick="btnCancelar_Click"
+                        CssClass="btn btn-default" Enabled="false" AutoPostBack="true" CausesValidation="false" />
+                </div>
+
             </fieldset>
         </div>
     </div>
     <div class="form-group col-sm-6">
+
         <asp:Button runat="server" ID="btnPagoMensualidad" Text="REGISTRAR PAGO POR TRANSFERENCIA"
             OnClick="btnRegistrarPago_Click" CssClass="btn btn-success" Enabled="true" />
         <div>

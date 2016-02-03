@@ -26,7 +26,7 @@ namespace APPWEB.Garage
                 listTipoFactura.Items.Add("B");
 
 
-                MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(nro);
+                MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensualID(nro);
 
                 txtCodigo.Text = editMensual.Codigo.ToString();
                 txtNombreyApellido.Text = editMensual.NombreApellido;
@@ -60,6 +60,10 @@ namespace APPWEB.Garage
 
             }
 
+            btnGuardar.Enabled = false;
+            btnCancelar.Enabled = true;
+            btnCancelar.Text = "Volver";
+
 
         }
 
@@ -69,5 +73,74 @@ namespace APPWEB.Garage
 
             Response.Redirect("pagotransferencia.aspx?MensualId="+nro);
         }
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            txtNombreyApellido.Enabled = true;
+            txtVehiculo.Enabled = true;
+            txtPatente.Enabled = true;
+            txtDomicilio.Enabled = true;
+            txtDomicilioFiscal.Enabled = true;
+            txtTelefono.Enabled = true;
+            txtRazonSocial.Enabled = true;
+            txtCUIL.Enabled = true;
+            listTipoFactura.Enabled = true;
+            txtPrecioMensualidad.Disabled = false;
+            listTipoMensualidad.Enabled = true;
+            txtObservaciones.Disabled = false;
+
+            btnGuardar.Enabled = true;
+            btnEditar.Enabled = false;
+            btnCancelar.Text = "Cancelar";
+
+
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            MODELO.Mensual oMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(Convert.ToInt32(txtCodigo.Text));
+
+
+            oMensual.NombreApellido = txtNombreyApellido.Text;
+            oMensual.Vehiculo = txtVehiculo.Text;
+            oMensual.Patente = txtPatente.Text;
+            oMensual.Domicilio = txtDomicilio.Text;
+            oMensual.DomicilioFiscal = txtDomicilioFiscal.Text;
+            oMensual.Telefono = txtTelefono.Text;
+            oMensual.RazonSocial = txtRazonSocial.Text;
+            oMensual.CUIL = txtCUIL.Text;
+            oMensual.TipoFactura = listTipoFactura.SelectedValue;
+            oMensual.PrecioSugerido = Convert.ToDecimal(txtPrecioMensualidad.Value);
+            oMensual.TipoMensual = listTipoMensualidad.SelectedValue;
+            oMensual.Observaciones = txtObservaciones.Value;
+
+            MODELO.Contexto.ObtenerInstancia().Mensuales.ApplyCurrentValues(oMensual);
+            MODELO.Contexto.ObtenerInstancia().SaveChanges();
+            MODELO.Contexto.ObtenerInstancia().Refresh(RefreshMode.StoreWins, oMensual);
+
+            txtNombreyApellido.Enabled = false;
+            txtVehiculo.Enabled = false;
+            txtPatente.Enabled = false;
+            txtDomicilio.Enabled = false;
+            txtDomicilioFiscal.Enabled = false;
+            txtTelefono.Enabled = false;
+            txtRazonSocial.Enabled = false;
+            txtCUIL.Enabled = false;
+            listTipoFactura.Enabled = false;
+            txtPrecioMensualidad.Disabled = true;
+            listTipoMensualidad.Enabled = false;
+            txtObservaciones.Disabled = true;
+
+            btnGuardar.Enabled = false;
+            btnEditar.Enabled = true;
+            btnCancelar.Text = "Volver";
+
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("mensuales.aspx");
+        }
+
     }
 }
