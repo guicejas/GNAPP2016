@@ -264,7 +264,9 @@
     <None Include="Fonts\glyphicons-regular.eot" />
     <None Include="Fonts\glyphicons-regular.ttf" />
     <None Include="Fonts\glyphicons-regular.woff" />
-    <Content Include="Garage\Web.config" />
+    <Content Include="Garage\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Garage\Garage.Master" />
   </ItemGroup>
   <ItemGroup>
