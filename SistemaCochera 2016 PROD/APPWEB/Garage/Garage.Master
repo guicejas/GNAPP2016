@@ -1,0 +1,121 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Garage.master.cs" Inherits="APPWEB.Garage.Garage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garage Nadia Online - 2015</title>
+    <link href="../Styles/bootstrap.css" rel="stylesheet" />
+    <link href="../Styles/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="../Styles/garageStyles.css" rel="stylesheet" />
+    <link href="../Styles/glyphicons.css" rel="stylesheet" />
+    <link href="../Styles/font-awesome.css" rel="stylesheet" />
+    <link href="../Styles/garageStyles.css" rel="stylesheet" />
+    <script type="text/javascript" src="../Scripts/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+        !function ($) {
+
+            $(function () {
+
+                $('[data-toggle="confirmation"]').confirmation();
+                $('[data-toggle="confirmation-singleton"]').confirmation({ singleton: true });
+                $('[data-toggle="confirmation-popout"]').confirmation({ popout: true });
+
+            })
+
+        } (window.jQuery)
+    </script>
+</head>
+<body>
+    <form>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="margin: 10px">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar">
+                    </span>
+                </button>
+                <a id="A1" runat="server" href="~/Garage/index.aspx" style="margin: 5px">
+                    <asp:Image ID="logo" runat="server" ImageUrl="~/Img/Logo4.png" Width="150" /></a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <div id="menuPrincipal" runat="server">
+                    <ul class="nav navbar-nav">
+                        <li runat="server" id="menuInicio"><a id="A2" runat="server" href="~/Garage/index.aspx">
+                            <!--<span class="glyphicon glyphicon-home black-icon"></span>-->
+                            INICIO</a> </li>
+                        <li runat="server" id="menuVehiculos"><a id="A5" runat="server" href="~/Garage/vehiculos.aspx">
+                            <!--<span class="glyphicon glyphicon-cars black-icon"></span>-->
+                            VEHICULOS</a> </li>
+                        <li runat="server" id="menuCajas"><a id="A8" runat="server" href="~/Garage/cajas.aspx">
+                            <!--<span class="glyphicon glyphicon-money black-icon"></span>-->
+                            CAJAS</a> </li>
+                        <li runat="server" id="menuClases"><a id="A15" runat="server" href="~/Garage/clases.aspx">
+                            <!--<span class="glyphicon glyphicon-usd black-icon"></span>-->
+                            CLASES</a> </li>
+                        <li runat="server" id="menuMensuales"><a id="A3" runat="server" href="~/Garage/mensuales.aspx">
+                            <!--<span class="glyphicon glyphicon-usd black-icon"></span>-->
+                            MENSUALES</a> </li>
+                        <li runat="server" id="menuImpresiones"><a id="A18" runat="server" href="~/Garage/impresiones.aspx">
+                            <!--<span class="glyphicon glyphicon-print black-icon"></span>-->
+                            IMPRESIONES</a> </li>
+                        <li class="dropdown" runat="server" id="menuAdministracion"><a id="A19" runat="server"
+                            href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!--<span class="glyphicon glyphicon-stats black-icon"></span>-->
+                            REPORTES<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                             <li><a id="A4" runat="server" href="~/View/reportepagosmensuales"><span class="fa fa-file-text-o black-icon">
+                                </span> Reporte Pagos Mensuales</a></li>
+                                <li><a id="A20" runat="server" href="~/View/reportecajas"><span class="fa fa-file-text-o black-icon">
+                                </span> Reporte Cajas</a></li>
+                                <li><a id="A21" runat="server" href="~/View/reportevehiculos"><span class="fa fa-file-text-o black-icon"></span>
+                                    Reporte Vehiculos</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="menuUsuario" class="dropdown" runat="server"><a id="A25" runat="server" href="#"
+                        class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user black-icon fa-15x">
+                        </span>
+                        <!--<span id="nombreUsuario" runat="server">
+                            <%: this.Context.User.Identity.Name %></span>-->
+                        <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="../View/CambioPassword"><span class="fa fa-key black-icon"></span> Cambiar
+                                Contraseña</a></li>
+                            <li class="divider"></li>
+                            <li><a href="../logout.aspx"><span class="fa fa-sign-out black-icon"></span>
+                                Salir del sistema</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="gradient">
+            <div class="taxi-pattern greydout">
+            </div>
+        </div>
+    </div>
+    <br />
+    <p />
+    <p />
+    </form>
+    <div class="container body-content">
+        <asp:ContentPlaceHolder ID="MainContentGarage" runat="server">
+        </asp:ContentPlaceHolder>
+        <br />
+        <div class="col-xs-12">
+            <hr />
+            <footer>
+                <p>
+                    &copy;
+                    <%: DateTime.Now.Year %>
+                    - Nadia Garage Online</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

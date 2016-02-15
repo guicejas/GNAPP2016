@@ -1,0 +1,624 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CocheraModelo.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="CocheraModeloStoreContainer">
+    <EntitySet Name="Vehiculos" EntityType="CocheraModelo.Store.Vehiculos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Clases" EntityType="CocheraModelo.Store.Clases" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cajas" EntityType="CocheraModelo.Store.Cajas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sistemas" EntityType="CocheraModelo.Store.Sistemas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Impresiones" EntityType="CocheraModelo.Store.Impresiones" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Descuentos" EntityType="CocheraModelo.Store.Descuentos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Mensuales" EntityType="CocheraModelo.Store.Mensuales" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PagoMensuales" EntityType="CocheraModelo.Store.PagoMensuales" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recordatorios" EntityType="CocheraModelo.Store.Recordatorios" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="VehiculoClase" Association="CocheraModelo.Store.VehiculoClase">
+      <End Role="Vehiculo" EntitySet="Vehiculos" />
+      <End Role="Clase" EntitySet="Clases" />
+    </AssociationSet>
+    <AssociationSet Name="VehiculoCaja" Association="CocheraModelo.Store.VehiculoCaja">
+      <End Role="Vehiculo" EntitySet="Vehiculos" />
+      <End Role="Caja" EntitySet="Cajas" />
+    </AssociationSet>
+    <AssociationSet Name="DescuentoCaja" Association="CocheraModelo.Store.DescuentoCaja">
+      <End Role="Descuento" EntitySet="Descuentos" />
+      <End Role="Caja" EntitySet="Cajas" />
+    </AssociationSet>
+    <AssociationSet Name="CajaPagoMensual" Association="CocheraModelo.Store.CajaPagoMensual">
+      <End Role="Caja" EntitySet="Cajas" />
+      <End Role="PagoMensual" EntitySet="PagoMensuales" />
+    </AssociationSet>
+    <AssociationSet Name="MensualPagoMensual" Association="CocheraModelo.Store.MensualPagoMensual">
+      <End Role="Mensual" EntitySet="Mensuales" />
+      <End Role="PagoMensual" EntitySet="PagoMensuales" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Vehiculos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DuplicadoNro" Type="nchar" Nullable="false" DefaultValue="1" MaxLength="1" />
+    <Property Name="Patente" Type="nchar" Nullable="false" MaxLength="3" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" DefaultValue="Activo" />
+    <Property Name="FechaHoraEntrada" Type="datetime" Nullable="false" />
+    <Property Name="FechaHoraSalida" Type="datetime" Nullable="true" />
+    <Property Name="Precio" Type="decimal" Nullable="true" Precision="10" Scale="2" />
+    <Property Name="NroTicket" Type="int" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Clase_id" Type="int" Nullable="false" />
+    <Property Name="Caja_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Clases">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PrecioHora" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="PrecioMediaEstadia" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="PrecioEstadia" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="TiempoCambioEstadia" Type="int" Nullable="true" />
+    <Property Name="MinutosTolerancia" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="Activo" Type="bit" Nullable="false" DefaultValue="true" />
+  </EntityType>
+  <EntityType Name="Cajas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Total" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="FechaHoraApertura" Type="datetime" Nullable="true" />
+    <Property Name="FechaHoraCierre" Type="datetime" Nullable="true" />
+    <Property Name="NroCaja" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Sistemas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="8" />
+    <Property Name="NombreImpresora" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NumeracionTickets" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="NumeracionCajas" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="CheckSiempreTOP" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="CheckSiempreMaximizado" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="CheckCodigoCerrar" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="CodigoCierre" Type="nvarchar" Nullable="false" MaxLength="8" />
+    <Property Name="passwordWeb" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Impresiones">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Encabezado1" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Encabezado2" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Encabezado3" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Encabezado4" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Encabezado5" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Pie1" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Pie2" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Pie3" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Pie4" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Pie5" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Descuentos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Monto" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Caja_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mensuales">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreApellido" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Vehiculo" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Patente" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Domicilio" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RazonSocial" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DomicilioFiscal" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CUIL" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TipoFactura" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Codigo" Type="int" Nullable="false" />
+    <Property Name="Activo" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="PrecioSugerido" Type="decimal" Nullable="true" Precision="10" Scale="2" />
+    <Property Name="TipoMensual" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" Nullable="true" />
+    <Property Name="Observaciones" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="PagoMensuales">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Monto" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="MesSaldado" Type="int" Nullable="true" />
+    <Property Name="Caja_Id" Type="int" Nullable="true" />
+    <Property Name="Mensual_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Recordatorios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mensaje" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="VehiculoClase">
+    <End Role="Vehiculo" Type="CocheraModelo.Store.Vehiculos" Multiplicity="*" />
+    <End Role="Clase" Type="CocheraModelo.Store.Clases" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Clase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Vehiculo">
+        <PropertyRef Name="Clase_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VehiculoCaja">
+    <End Role="Vehiculo" Type="CocheraModelo.Store.Vehiculos" Multiplicity="*" />
+    <End Role="Caja" Type="CocheraModelo.Store.Cajas" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Caja">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehiculo">
+        <PropertyRef Name="Caja_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DescuentoCaja">
+    <End Role="Descuento" Type="CocheraModelo.Store.Descuentos" Multiplicity="*" />
+    <End Role="Caja" Type="CocheraModelo.Store.Cajas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Caja">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Descuento">
+        <PropertyRef Name="Caja_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CajaPagoMensual">
+    <End Role="Caja" Type="CocheraModelo.Store.Cajas" Multiplicity="0..1" />
+    <End Role="PagoMensual" Type="CocheraModelo.Store.PagoMensuales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Caja">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PagoMensual">
+        <PropertyRef Name="Caja_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MensualPagoMensual">
+    <End Role="Mensual" Type="CocheraModelo.Store.Mensuales" Multiplicity="1" />
+    <End Role="PagoMensual" Type="CocheraModelo.Store.PagoMensuales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mensual">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PagoMensual">
+        <PropertyRef Name="Mensual_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CocheraModelo" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="CocheraModeloContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Vehiculos" EntityType="CocheraModelo.Vehiculo" />
+          <EntitySet Name="Clases" EntityType="CocheraModelo.Clase" />
+          <AssociationSet Name="VehiculoClase" Association="CocheraModelo.VehiculoClase">
+            <End Role="Vehiculo" EntitySet="Vehiculos" />
+            <End Role="Clase" EntitySet="Clases" />
+          </AssociationSet>
+          <EntitySet Name="Cajas" EntityType="CocheraModelo.Caja" />
+          <AssociationSet Name="VehiculoCaja" Association="CocheraModelo.VehiculoCaja">
+            <End Role="Vehiculo" EntitySet="Vehiculos" />
+            <End Role="Caja" EntitySet="Cajas" />
+          </AssociationSet>
+          <EntitySet Name="Sistemas" EntityType="CocheraModelo.Sistema" />
+          <EntitySet Name="Impresiones" EntityType="CocheraModelo.Impresion" />
+          <EntitySet Name="Descuentos" EntityType="CocheraModelo.Descuento" />
+          <AssociationSet Name="DescuentoCaja" Association="CocheraModelo.DescuentoCaja">
+            <End Role="Descuento" EntitySet="Descuentos" />
+            <End Role="Caja" EntitySet="Cajas" />
+          </AssociationSet>
+          <EntitySet Name="Mensuales" EntityType="CocheraModelo.Mensual" />
+          <EntitySet Name="PagoMensuales" EntityType="CocheraModelo.PagoMensual" />
+          <EntitySet Name="Recordatorios" EntityType="CocheraModelo.Recordatorio" />
+          <AssociationSet Name="CajaPagoMensual" Association="CocheraModelo.CajaPagoMensual">
+            <End Role="Caja" EntitySet="Cajas" />
+            <End Role="PagoMensual" EntitySet="PagoMensuales" />
+          </AssociationSet>
+          <AssociationSet Name="MensualPagoMensual" Association="CocheraModelo.MensualPagoMensual">
+            <End Role="Mensual" EntitySet="Mensuales" />
+            <End Role="PagoMensual" EntitySet="PagoMensuales" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Vehiculo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Clase" Relationship="CocheraModelo.VehiculoClase" FromRole="Vehiculo" ToRole="Clase" />
+          <NavigationProperty Name="Caja" Relationship="CocheraModelo.VehiculoCaja" FromRole="Vehiculo" ToRole="Caja" />
+          <Property Type="String" Name="DuplicadoNro" Nullable="false" DefaultValue="1" MaxLength="1" FixedLength="true" />
+          <Property Type="String" Name="Patente" Nullable="false" MaxLength="3" FixedLength="true" />
+          <Property Type="String" Name="Estado" Nullable="false" DefaultValue="Activo" />
+          <Property Type="DateTime" Name="FechaHoraEntrada" Nullable="false" />
+          <Property Type="DateTime" Name="FechaHoraSalida" Nullable="true" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="NroTicket" Nullable="false" />
+          <Property Type="String" Name="Telefono" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Clase">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <NavigationProperty Name="Vehiculo" Relationship="CocheraModelo.VehiculoClase" FromRole="Clase" ToRole="Vehiculo" />
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Codigo" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="Decimal" Name="PrecioHora" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="PrecioMediaEstadia" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="PrecioEstadia" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="TiempoCambioEstadia" Nullable="true" />
+          <Property Type="Int32" Name="MinutosTolerancia" Nullable="true" DefaultValue="0" />
+          <Property Type="Boolean" Name="Activo" Nullable="false" DefaultValue="true" />
+        </EntityType>
+        <Association Name="VehiculoClase">
+          <End Type="CocheraModelo.Vehiculo" Role="Vehiculo" Multiplicity="*" />
+          <End Type="CocheraModelo.Clase" Role="Clase" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="Total" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="Vehiculo" Relationship="CocheraModelo.VehiculoCaja" FromRole="Caja" ToRole="Vehiculo" />
+          <Property Type="DateTime" Name="FechaHoraApertura" Nullable="true" />
+          <Property Type="DateTime" Name="FechaHoraCierre" Nullable="true" />
+          <Property Type="Int32" Name="NroCaja" Nullable="true" />
+          <NavigationProperty Name="Descuento" Relationship="CocheraModelo.DescuentoCaja" FromRole="Caja" ToRole="Descuento" />
+          <NavigationProperty Name="PagoMensual" Relationship="CocheraModelo.CajaPagoMensual" FromRole="Caja" ToRole="PagoMensual" />
+        </EntityType>
+        <Association Name="VehiculoCaja">
+          <End Type="CocheraModelo.Vehiculo" Role="Vehiculo" Multiplicity="*" />
+          <End Type="CocheraModelo.Caja" Role="Caja" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Sistema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="NombreImpresora" Nullable="false" />
+          <Property Type="Int32" Name="NumeracionTickets" Nullable="true" DefaultValue="0" />
+          <Property Type="Int32" Name="NumeracionCajas" Nullable="true" DefaultValue="0" />
+          <Property Type="Boolean" Name="CheckSiempreTOP" Nullable="false" DefaultValue="false" />
+          <Property Type="Boolean" Name="CheckSiempreMaximizado" Nullable="false" DefaultValue="false" />
+          <Property Type="Boolean" Name="CheckCodigoCerrar" Nullable="false" DefaultValue="true" />
+          <Property Type="String" Name="CodigoCierre" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="passwordWeb" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Impresion">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Type="Int32" Name="Codigo" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Descripcion" Nullable="false" />
+          <Property Type="String" Name="Encabezado1" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Encabezado2" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Encabezado3" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Encabezado4" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Encabezado5" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Pie1" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Pie2" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Pie3" MaxLength="50" Nullable="true" />
+          <Property Type="String" Name="Pie4" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Pie5" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Descuento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="Monto" Nullable="false" Scale="2" Precision="10" />
+          <NavigationProperty Name="Caja" Relationship="CocheraModelo.DescuentoCaja" FromRole="Descuento" ToRole="Caja" />
+        </EntityType>
+        <Association Name="DescuentoCaja">
+          <End Type="CocheraModelo.Descuento" Role="Descuento" Multiplicity="*" />
+          <End Type="CocheraModelo.Caja" Role="Caja" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Mensual">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="NombreApellido" Nullable="true" />
+          <Property Type="String" Name="Vehiculo" Nullable="true" />
+          <Property Type="String" Name="Patente" Nullable="true" />
+          <Property Type="String" Name="Domicilio" Nullable="true" />
+          <Property Type="String" Name="Telefono" Nullable="true" />
+          <Property Type="String" Name="RazonSocial" Nullable="true" />
+          <Property Type="String" Name="DomicilioFiscal" Nullable="true" />
+          <Property Type="String" Name="CUIL" Nullable="true" />
+          <Property Type="String" Name="TipoFactura" Nullable="true" />
+          <NavigationProperty Name="PagoMensual" Relationship="CocheraModelo.MensualPagoMensual" FromRole="Mensual" ToRole="PagoMensual" />
+          <Property Type="Int32" Name="Codigo" Nullable="false" />
+          <Property Type="Boolean" Name="Activo" Nullable="false" DefaultValue="true" />
+          <Property Type="Decimal" Name="PrecioSugerido" Nullable="true" Scale="2" Precision="10" />
+          <Property Type="String" Name="TipoMensual" Nullable="true" />
+          <Property Type="DateTime" Name="FechaAlta" Nullable="false" />
+          <Property Type="DateTime" Name="FechaBaja" Nullable="true" />
+          <Property Type="String" Name="Observaciones" Nullable="true" />
+        </EntityType>
+        <EntityType Name="PagoMensual">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" />
+          <Property Type="Decimal" Name="Monto" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="MesSaldado" Nullable="true" />
+          <NavigationProperty Name="Caja" Relationship="CocheraModelo.CajaPagoMensual" FromRole="PagoMensual" ToRole="Caja" />
+          <NavigationProperty Name="Mensual" Relationship="CocheraModelo.MensualPagoMensual" FromRole="PagoMensual" ToRole="Mensual" />
+        </EntityType>
+        <EntityType Name="Recordatorio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Mensaje" Nullable="true" />
+        </EntityType>
+        <Association Name="CajaPagoMensual">
+          <End Type="CocheraModelo.Caja" Role="Caja" Multiplicity="0..1" />
+          <End Type="CocheraModelo.PagoMensual" Role="PagoMensual" Multiplicity="*" />
+        </Association>
+        <Association Name="MensualPagoMensual">
+          <End Type="CocheraModelo.Mensual" Role="Mensual" Multiplicity="1" />
+          <End Type="CocheraModelo.PagoMensual" Role="PagoMensual" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CocheraModeloStoreContainer" CdmEntityContainer="CocheraModeloContainer">
+    <EntitySetMapping Name="Vehiculos">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Vehiculo)">
+        <MappingFragment StoreEntitySet="Vehiculos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="DuplicadoNro" ColumnName="DuplicadoNro" />
+          <ScalarProperty Name="Patente" ColumnName="Patente" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaHoraEntrada" ColumnName="FechaHoraEntrada" />
+          <ScalarProperty Name="FechaHoraSalida" ColumnName="FechaHoraSalida" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="NroTicket" ColumnName="NroTicket" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clases">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Clase)">
+        <MappingFragment StoreEntitySet="Clases">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="PrecioHora" ColumnName="PrecioHora" />
+          <ScalarProperty Name="PrecioMediaEstadia" ColumnName="PrecioMediaEstadia" />
+          <ScalarProperty Name="PrecioEstadia" ColumnName="PrecioEstadia" />
+          <ScalarProperty Name="TiempoCambioEstadia" ColumnName="TiempoCambioEstadia" />
+          <ScalarProperty Name="MinutosTolerancia" ColumnName="MinutosTolerancia" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cajas">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Caja)">
+        <MappingFragment StoreEntitySet="Cajas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="FechaHoraApertura" ColumnName="FechaHoraApertura" />
+          <ScalarProperty Name="FechaHoraCierre" ColumnName="FechaHoraCierre" />
+          <ScalarProperty Name="NroCaja" ColumnName="NroCaja" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sistemas">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Sistema)">
+        <MappingFragment StoreEntitySet="Sistemas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="NombreImpresora" ColumnName="NombreImpresora" />
+          <ScalarProperty Name="NumeracionTickets" ColumnName="NumeracionTickets" />
+          <ScalarProperty Name="NumeracionCajas" ColumnName="NumeracionCajas" />
+          <ScalarProperty Name="CheckSiempreTOP" ColumnName="CheckSiempreTOP" />
+          <ScalarProperty Name="CheckSiempreMaximizado" ColumnName="CheckSiempreMaximizado" />
+          <ScalarProperty Name="CheckCodigoCerrar" ColumnName="CheckCodigoCerrar" />
+          <ScalarProperty Name="CodigoCierre" ColumnName="CodigoCierre" />
+          <ScalarProperty Name="passwordWeb" ColumnName="passwordWeb" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Impresiones">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Impresion)">
+        <MappingFragment StoreEntitySet="Impresiones">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Encabezado1" ColumnName="Encabezado1" />
+          <ScalarProperty Name="Encabezado2" ColumnName="Encabezado2" />
+          <ScalarProperty Name="Encabezado3" ColumnName="Encabezado3" />
+          <ScalarProperty Name="Encabezado4" ColumnName="Encabezado4" />
+          <ScalarProperty Name="Encabezado5" ColumnName="Encabezado5" />
+          <ScalarProperty Name="Pie1" ColumnName="Pie1" />
+          <ScalarProperty Name="Pie2" ColumnName="Pie2" />
+          <ScalarProperty Name="Pie3" ColumnName="Pie3" />
+          <ScalarProperty Name="Pie4" ColumnName="Pie4" />
+          <ScalarProperty Name="Pie5" ColumnName="Pie5" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Descuentos">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Descuento)">
+        <MappingFragment StoreEntitySet="Descuentos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mensuales">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Mensual)">
+        <MappingFragment StoreEntitySet="Mensuales">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="NombreApellido" ColumnName="NombreApellido" />
+          <ScalarProperty Name="Vehiculo" ColumnName="Vehiculo" />
+          <ScalarProperty Name="Patente" ColumnName="Patente" />
+          <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+          <ScalarProperty Name="DomicilioFiscal" ColumnName="DomicilioFiscal" />
+          <ScalarProperty Name="CUIL" ColumnName="CUIL" />
+          <ScalarProperty Name="TipoFactura" ColumnName="TipoFactura" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="PrecioSugerido" ColumnName="PrecioSugerido" />
+          <ScalarProperty Name="TipoMensual" ColumnName="TipoMensual" />
+          <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+          <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PagoMensuales">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.PagoMensual)">
+        <MappingFragment StoreEntitySet="PagoMensuales">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="MesSaldado" ColumnName="MesSaldado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recordatorios">
+      <EntityTypeMapping TypeName="IsTypeOf(CocheraModelo.Recordatorio)">
+        <MappingFragment StoreEntitySet="Recordatorios">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="VehiculoClase" TypeName="CocheraModelo.VehiculoClase" StoreEntitySet="Vehiculos">
+      <EndProperty Name="Clase">
+        <ScalarProperty Name="id" ColumnName="Clase_id" />
+      </EndProperty>
+      <EndProperty Name="Vehiculo">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="VehiculoCaja" TypeName="CocheraModelo.VehiculoCaja" StoreEntitySet="Vehiculos">
+      <EndProperty Name="Caja">
+        <ScalarProperty Name="Id" ColumnName="Caja_Id" />
+      </EndProperty>
+      <EndProperty Name="Vehiculo">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+      <Condition ColumnName="Caja_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DescuentoCaja" TypeName="CocheraModelo.DescuentoCaja" StoreEntitySet="Descuentos">
+      <EndProperty Name="Caja">
+        <ScalarProperty Name="Id" ColumnName="Caja_Id" />
+      </EndProperty>
+      <EndProperty Name="Descuento">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CajaPagoMensual" TypeName="CocheraModelo.CajaPagoMensual" StoreEntitySet="PagoMensuales">
+      <EndProperty Name="Caja">
+        <ScalarProperty Name="Id" ColumnName="Caja_Id" />
+      </EndProperty>
+      <EndProperty Name="PagoMensual">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+      <Condition ColumnName="Caja_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MensualPagoMensual" TypeName="CocheraModelo.MensualPagoMensual" StoreEntitySet="PagoMensuales">
+      <EndProperty Name="Mensual">
+        <ScalarProperty Name="id" ColumnName="Mensual_id" />
+      </EndProperty>
+      <EndProperty Name="PagoMensual">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="CocheraModelo" DisplayType="true" >
+        <EntityTypeShape EntityType="CocheraModelo.Vehiculo" Width="2.375" PointX="0.5" PointY="2" Height="3.1340950520833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="CocheraModelo.Clase" Width="2.375" PointX="3.75" PointY="2" Height="2.9417936197916656" />
+        <AssociationConnector Association="CocheraModelo.VehiculoClase">
+          <ConnectorPoint PointX="2.875" PointY="3.4708968098958328" />
+          <ConnectorPoint PointX="3.75" PointY="3.4708968098958328" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CocheraModelo.Caja" Width="2.5" PointX="2.625" PointY="5.625" Height="2.5571907552083317" />
+        <AssociationConnector Association="CocheraModelo.VehiculoCaja" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.6875" PointY="5.1340950520833326" />
+          <ConnectorPoint PointX="1.6875" PointY="5.385" />
+          <ConnectorPoint PointX="3.875" PointY="5.385" />
+          <ConnectorPoint PointX="3.875" PointY="5.625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CocheraModelo.Sistema" Width="2.625" PointX="6.625" PointY="2" Height="2.9417936197916656" />
+        <EntityTypeShape EntityType="CocheraModelo.Impresion" Width="2" PointX="9.5" PointY="1.875" Height="3.3263964843749996" />
+        <EntityTypeShape EntityType="CocheraModelo.Descuento" Width="1.5" PointX="0.5" PointY="5.625" Height="1.4033821614583326" />
+        <AssociationConnector Association="CocheraModelo.DescuentoCaja">
+          <ConnectorPoint PointX="2" PointY="6.422841796875" />
+          <ConnectorPoint PointX="2.625" PointY="6.422841796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CocheraModelo.Mensual" Width="2" PointX="7.625" PointY="5.375" Height="4.4802050781250014" />
+        <EntityTypeShape EntityType="CocheraModelo.PagoMensual" Width="1.625" PointX="5.625" PointY="5.625" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="CocheraModelo.Recordatorio" Width="1.5" PointX="9.875" PointY="5.75" Height="1.4033821614583326" />
+        <AssociationConnector Association="CocheraModelo.CajaPagoMensual">
+          <ConnectorPoint PointX="5.125" PointY="6.7112939453125" />
+          <ConnectorPoint PointX="5.625" PointY="6.7112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="CocheraModelo.MensualPagoMensual">
+          <ConnectorPoint PointX="7.625" PointY="6.7112939453125" />
+          <ConnectorPoint PointX="7.25" PointY="6.7112939453125" />
+        </AssociationConnector>
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

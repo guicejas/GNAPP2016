@@ -1,0 +1,126 @@
+﻿body 
+{
+
+}
+
+.text
+{
+	font-size: 1.2em;
+
+}
+
+.black-icon {
+    color: #000000;
+    opacity: 0.95;
+    width: 200;
+}
+
+.navbar {
+  font-size: 1.04em;
+}
+
+.panel-other {
+  border-color: #3B0034;
+}
+.panel-other > .panel-heading {
+  color: #ffffff;
+  background-color: #76276C;
+  border-color: #3B0034;
+}
+.panel-other > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #3B0034;
+}
+.panel-other > .panel-heading .badge {
+  color: #76276C;
+  background-color: #ffffff;
+}
+.panel-other > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #3B0034;
+}
+
+.huge {
+    font-size: 40px;
+}
+
+.progress-bar-other {
+  background-color: #76276C;
+}
+.progress-striped .progress-bar-other {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+
+.verde {
+  background-color: #3c9a5f;
+}
+.rojo {
+  background-color: #ea2f10;
+}
+.amarillo {
+  background-color: #d08002;
+}
+.bold
+{
+font-weight: bold;
+}
+
+	.br
+{
+	height:40px;
+}
+
+@media (min-width: 1200px) {
+  .col-lg-2-5{
+    float: left;
+  }
+  
+  .col-lg-2-5 {
+    width: 20%;
+  }
+  
+  .col-lg-2-5 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+}
+
+@media (max-width: 415px) 
+{
+.fa-5x {
+  font-size: 3em;
+}
+}
+
+
+
+@media (max-width:991px) and (min-width:767px) {
+	.br
+{
+	height:80px;
+}
+}​
+
+
+.tableFilters {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 21px;
+  
+}
+.tableFilters > thead > tr > th,
+.tableFilters > tbody > tr > th,
+.tableFilters > tfoot > tr > th,
+.tableFilters > thead > tr > td,
+.tableFilters > tbody > tr > td,
+.tableFilters > tfoot > tr > td {
+  padding: 5px;
+  line-height: 1.4;
+  vertical-align: top;
+}
+
