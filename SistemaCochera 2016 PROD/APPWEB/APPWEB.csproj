@@ -65,6 +65,7 @@
     <Content Include="Fonts\fontawesome-webfont.svg" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Garage\cajas.aspx" />
+    <Content Include="Garage\cambiopassword.aspx" />
     <Content Include="Garage\clases.aspx" />
     <Content Include="Garage\editarmensual.aspx" />
     <Content Include="Garage\impresiones.aspx" />
@@ -72,7 +73,9 @@
     <Content Include="Garage\mensuales.aspx" />
     <Content Include="Garage\nuevomensual.aspx" />
     <Content Include="Garage\pagotransferencia.aspx" />
+    <Content Include="Garage\reportefacturacion.aspx" />
     <Content Include="Garage\reporteganancias.aspx" />
+    <Content Include="Garage\reportemensuales.aspx" />
     <Content Include="Garage\test.aspx" />
     <Content Include="Garage\vehiculos.aspx" />
     <Content Include="Garage\vermensual.aspx" />
@@ -149,6 +152,13 @@
     <Compile Include="Garage\cajas.aspx.designer.cs">
       <DependentUpon>cajas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Garage\cambiopassword.aspx.cs">
+      <DependentUpon>cambiopassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Garage\cambiopassword.aspx.designer.cs">
+      <DependentUpon>cambiopassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Garage\clases.aspx.cs">
       <DependentUpon>clases.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -205,12 +215,26 @@
     <Compile Include="Garage\pagotransferencia.aspx.designer.cs">
       <DependentUpon>pagotransferencia.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Garage\reportefacturacion.aspx.cs">
+      <DependentUpon>reportefacturacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Garage\reportefacturacion.aspx.designer.cs">
+      <DependentUpon>reportefacturacion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Garage\reporteganancias.aspx.cs">
       <DependentUpon>reporteganancias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Garage\reporteganancias.aspx.designer.cs">
       <DependentUpon>reporteganancias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Garage\reportemensuales.aspx.cs">
+      <DependentUpon>reportemensuales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Garage\reportemensuales.aspx.designer.cs">
+      <DependentUpon>reportemensuales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Garage\test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>

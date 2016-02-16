@@ -66,12 +66,12 @@
                             <!--<span class="glyphicon glyphicon-stats black-icon"></span>-->
                             REPORTES<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                             <li><a id="A4" runat="server" href="~/Garage/reportepagosmensuales.aspx"><span class="fa fa-file-text-o black-icon">
-                                </span> Reporte Pagos Mensuales</a></li>
+                             <li><a id="A4" runat="server" href="~/Garage/reportemensuales.aspx"><span class="fa fa-file-text-o black-icon">
+                                </span> Reporte de Mensuales</a></li>
                                 <li><a id="A20" runat="server" href="~/Garage/reporteganancias.aspx"><span class="fa fa-file-text-o black-icon">
-                                </span> Reporte Ganancias</a></li>
-                                <li><a id="A21" runat="server" href="~/Garage/reportevehiculos.aspx"><span class="fa fa-file-text-o black-icon"></span>
-                                    Reporte Vehiculos</a></li>
+                                </span> Reporte de Ganancias</a></li>
+                                <li><a id="A21" runat="server" href="~/Garage/reportefacturacion.aspx"><span class="fa fa-file-text-o black-icon"></span>
+                                    Reporte de Facturación</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -84,7 +84,7 @@
                             <%: this.Context.User.Identity.Name %></span>-->
                         <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="../View/CambioPassword"><span class="fa fa-key black-icon"></span> Cambiar
+                            <li><a href="~/Garage/cambiopassword.aspx"><span class="fa fa-key black-icon"></span> Cambiar
                                 Contraseña</a></li>
                             <li class="divider"></li>
                             <li><a href="../logout.aspx"><span class="fa fa-sign-out black-icon"></span>
@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="gradient">
-            <div class="taxi-pattern greydout">
+            <div class="greydout">
             </div>
         </div>
     </div>

@@ -49,6 +49,8 @@
     <Compile Include="ControladoraImpresion.cs" />
     <Compile Include="ControladoraMensuales.cs" />
     <Compile Include="ControladoraRecordatorios.cs" />
+    <Compile Include="ControladoraReporteHTML.cs" />
+    <Compile Include="ControladoraReportesPDF.cs" />
     <Compile Include="ControladoraSistema.cs" />
     <Compile Include="ControladoraVehiculos.cs" />
     <Compile Include="ControladoraCajas.cs" />
