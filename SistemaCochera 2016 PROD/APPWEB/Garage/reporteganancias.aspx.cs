@@ -30,12 +30,12 @@ namespace APPWEB.Garage
 
         protected void btnGenerarMensual_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("reportegananciasHTML.aspx?tipo=mensual&mes=" + listMesMensual.SelectedIndex.ToString()+"&ano=" + txtAnoMensual.Value);
         }
 
         protected void btnGenerarPeriodo_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("reportegananciasHTML.aspx?tipo=periodo&desde=" + txtFechaDesde.Value + "&hasta=" + txtFechaHasta.Value);
         }
 
 

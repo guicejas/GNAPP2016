@@ -78,7 +78,7 @@
                         runat="server" ValidationExpression="^(19|20)\d{2}$" ErrorMessage="Ingrese correctamente el año deseado"
                         CssClass="label label-danger" ControlToValidate="txtAnoMensual" />
                 </div>
-                <asp:Button runat="server" ID="btnGenerarMensual" Text="Generar" OnClick="btnGenerarMensual_Click"
+                <asp:Button runat="server" ID="btnGenerarMensual" Text="Generar Anual/Mensual" OnClick="btnGenerarMensual_Click"
                     CssClass="btn btn-success" AutoPostBack="true" ValidationGroup="groupMensual" />
                     <br />
             </fieldset>
@@ -120,7 +120,7 @@
                         ErrorMessage="Ingrese una fecha HASTA en formato dd/mm/aaaa." CssClass="label label-danger"
                         ControlToValidate="txtFechaHasta" />
                 </div>
-                <asp:Button runat="server" ID="btnGenerarPeriodo" Text="Generar" OnClick="btnGenerarPeriodo_Click"
+                <asp:Button runat="server" ID="btnGenerarPeriodo" Text="Generar Periodo" OnClick="btnGenerarPeriodo_Click"
                     CssClass="btn btn-success" AutoPostBack="true" ValidationGroup="groupPeriodo" />
             </fieldset>
         </div>
