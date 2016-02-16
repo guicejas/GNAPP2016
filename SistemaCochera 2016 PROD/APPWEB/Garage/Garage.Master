@@ -66,11 +66,11 @@
                             <!--<span class="glyphicon glyphicon-stats black-icon"></span>-->
                             REPORTES<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                             <li><a id="A4" runat="server" href="~/View/reportepagosmensuales"><span class="fa fa-file-text-o black-icon">
+                             <li><a id="A4" runat="server" href="~/Garage/reportepagosmensuales.aspx"><span class="fa fa-file-text-o black-icon">
                                 </span> Reporte Pagos Mensuales</a></li>
-                                <li><a id="A20" runat="server" href="~/View/reportecajas"><span class="fa fa-file-text-o black-icon">
-                                </span> Reporte Cajas</a></li>
-                                <li><a id="A21" runat="server" href="~/View/reportevehiculos"><span class="fa fa-file-text-o black-icon"></span>
+                                <li><a id="A20" runat="server" href="~/Garage/reporteganancias.aspx"><span class="fa fa-file-text-o black-icon">
+                                </span> Reporte Ganancias</a></li>
+                                <li><a id="A21" runat="server" href="~/Garage/reportevehiculos.aspx"><span class="fa fa-file-text-o black-icon"></span>
                                     Reporte Vehiculos</a></li>
                             </ul>
                         </li>

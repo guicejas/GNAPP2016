@@ -52,7 +52,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.txtNroCaja = new System.Windows.Forms.TextBox();
             this.dgridListados = new System.Windows.Forms.DataGridView();
-            this.CantidadVehiculos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bdsListadoCajas = new System.Windows.Forms.BindingSource(this.components);
             this.lblSinResultados = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblResultados = new System.Windows.Forms.Label();
@@ -60,7 +60,8 @@
             this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaHoraAperturaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaHoraCierreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bdsListadoCajas = new System.Windows.Forms.BindingSource(this.components);
+            this.CantidadVehiculos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalDescuentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gboxFechaCierre.SuspendLayout();
             this.gboxFechaApertura.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgridListados)).BeginInit();
@@ -321,7 +322,8 @@
             this.totalDataGridViewTextBoxColumn,
             this.fechaHoraAperturaDataGridViewTextBoxColumn,
             this.fechaHoraCierreDataGridViewTextBoxColumn,
-            this.CantidadVehiculos});
+            this.CantidadVehiculos,
+            this.TotalDescuentos});
             this.dgridListados.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dgridListados.DataSource = this.bdsListadoCajas;
             this.dgridListados.Location = new System.Drawing.Point(12, 164);
@@ -343,13 +345,9 @@
             this.dgridListados.Size = new System.Drawing.Size(884, 430);
             this.dgridListados.TabIndex = 20;
             // 
-            // CantidadVehiculos
+            // bdsListadoCajas
             // 
-            this.CantidadVehiculos.DataPropertyName = "CantidadVehiculos";
-            this.CantidadVehiculos.HeaderText = "Cant Veh.";
-            this.CantidadVehiculos.Name = "CantidadVehiculos";
-            this.CantidadVehiculos.ReadOnly = true;
-            this.CantidadVehiculos.Width = 110;
+            this.bdsListadoCajas.DataSource = typeof(MODELO.Caja);
             // 
             // lblSinResultados
             // 
@@ -393,7 +391,7 @@
             // 
             // totalDataGridViewTextBoxColumn
             // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "TotalNeto";
             this.totalDataGridViewTextBoxColumn.HeaderText = "Recaudado";
             this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
             this.totalDataGridViewTextBoxColumn.ReadOnly = true;
@@ -414,9 +412,20 @@
             this.fechaHoraCierreDataGridViewTextBoxColumn.ReadOnly = true;
             this.fechaHoraCierreDataGridViewTextBoxColumn.Width = 170;
             // 
-            // bdsListadoCajas
+            // CantidadVehiculos
             // 
-            this.bdsListadoCajas.DataSource = typeof(MODELO.Caja);
+            this.CantidadVehiculos.DataPropertyName = "CantidadVehiculos";
+            this.CantidadVehiculos.HeaderText = "Cant Veh.";
+            this.CantidadVehiculos.Name = "CantidadVehiculos";
+            this.CantidadVehiculos.ReadOnly = true;
+            this.CantidadVehiculos.Width = 110;
+            // 
+            // TotalDescuentos
+            // 
+            this.TotalDescuentos.DataPropertyName = "TotalDescuentos";
+            this.TotalDescuentos.HeaderText = "Descuentos";
+            this.TotalDescuentos.Name = "TotalDescuentos";
+            this.TotalDescuentos.ReadOnly = true;
             // 
             // frmListadoCajas
             // 
@@ -424,7 +433,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCerrar;
-            this.ClientSize = new System.Drawing.Size(911, 642);
+            this.ClientSize = new System.Drawing.Size(911, 640);
             this.Controls.Add(this.lblResultados);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblSinResultados);
@@ -487,13 +496,14 @@
         private System.Windows.Forms.TextBox txtNroCaja;
         private System.Windows.Forms.DataGridView dgridListados;
         private System.Windows.Forms.BindingSource bdsListadoCajas;
+        private System.Windows.Forms.Label lblSinResultados;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblResultados;
         private System.Windows.Forms.DataGridViewTextBoxColumn nroCajaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaHoraAperturaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaHoraCierreDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CantidadVehiculos;
-        private System.Windows.Forms.Label lblSinResultados;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblResultados;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalDescuentos;
     }
 }
