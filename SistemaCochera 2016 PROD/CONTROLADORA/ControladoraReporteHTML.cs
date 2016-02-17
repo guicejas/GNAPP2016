@@ -104,7 +104,7 @@ namespace CONTROLADORA
 
         public static string GenerarCodigoMensuales(List<MODELO.Mensual> oMensuales)
         {
-            string report_string;
+            string report_string = "";
 
             //decimal total = oCajas.Sum(x => x.TotalNeto);
             //decimal totalDescuentos = oCajas.Sum(x => x.TotalDescuentos);
