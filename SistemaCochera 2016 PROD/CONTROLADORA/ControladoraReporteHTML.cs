@@ -23,7 +23,7 @@ namespace CONTROLADORA
             
             if (oCajas.Count != 0)
             {
-                report_string = GenerarCodigo(oCajas);
+                report_string = GenerarCodigoGanancias(oCajas);
             }
             else
             {
@@ -41,7 +41,7 @@ namespace CONTROLADORA
 
             if (oCajas.Count != 0)
             {
-                report_string = GenerarCodigo(oCajas);
+                report_string = GenerarCodigoGanancias(oCajas);
 
             }
             else
@@ -51,7 +51,7 @@ namespace CONTROLADORA
             return report_string;
         }
 
-        public static string GenerarCodigo(List<MODELO.Caja> oCajas)
+        public static string GenerarCodigoGanancias(List<MODELO.Caja> oCajas)
         {
             string report_string = "";
 
@@ -78,5 +78,57 @@ namespace CONTROLADORA
 
             return report_string;
         }
+
+        public static string ReporteMensuales(string desde, string hasta)
+        {
+
+            List<MODELO.Mensual> oMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.Where(x => x.Activo == true).ToList();
+
+            List<MODELO.Mensual> oMensualesPagaron = oMensuales.Where(x => x.PagoMensual.Last().MesSaldado == DateTime.Today.Month && x.PagoMensual.Last().Fecha.Year == DateTime.Today.Year).ToList();
+            List<MODELO.Mensual> oMensualesDeben = oMensuales.Where(x => x.PagoMensual.Last().MesSaldado < DateTime.Today.Month && x.PagoMensual.Last().Fecha.Year == DateTime.Today.Year).ToList();
+
+            if (oMensualesPagaron.Count != 0)
+            {
+                report_string += GenerarCodigoMensuales(oMensualesPagaron);
+            }
+            else if (oMensualesDeben.Count != 0)
+            {
+                report_string += GenerarCodigoMensuales(oMensualesDeben);
+            }
+            else
+            {
+                report_string += "NO HAY DATOS<br/>";
+            }
+            return report_string;
+        }
+
+        public static string GenerarCodigoMensuales(List<MODELO.Mensual> oMensuales)
+        {
+            string report_string;
+
+            //decimal total = oCajas.Sum(x => x.TotalNeto);
+            //decimal totalDescuentos = oCajas.Sum(x => x.TotalDescuentos);
+            //int vehiculos = oCajas.Sum(x => x.Vehiculo.Count);
+            //decimal cajamax = oCajas.Max(x => x.TotalNeto);
+            //decimal cajamin = oCajas.Min(x => x.TotalNeto);
+            //decimal cajaprom = Math.Round(oCajas.Average(x => x.TotalNeto), 2);
+            //int vehiculosMax = oCajas.Max(x => x.Vehiculo.Count);
+            //int vehiculosMin = oCajas.Min(x => x.Vehiculo.Count);
+            //double vehiculosProm = Math.Round(oCajas.Average(x => x.Vehiculo.Count), 2);
+
+            //report_string += "<br/>\r\n";
+            //report_string += "<b>TOTAL RECAUDADO: $ " + total + "</b><br/><br/>";
+            //report_string += "Caja Máxima: $ " + cajamax + "<br/>";
+            //report_string += "Caja Mínima: $ " + cajamin + "<br/>";
+            //report_string += "Caja Promedio: $ " + cajaprom + "<br/><br/>";
+            //report_string += "Total Descuentos Aplicados: $ " + totalDescuentos + "<br/><br/>";
+            //report_string += "TOTAL VEHÍCULOS: " + vehiculos + "<br/>";
+            //report_string += "Vehículos Máximo: " + vehiculosMax + "<br/>";
+            //report_string += "Vehículos Mínimo: " + vehiculosMin + "<br/>";
+            report_string += "Mensuales: <br/>";
+
+            return report_string;
+        }
+
     }
 }
