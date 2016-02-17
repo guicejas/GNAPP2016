@@ -26,11 +26,13 @@ namespace APPWEB.Garage
             listMesMensual.Items.Add("OCTUBRE");
             listMesMensual.Items.Add("NOVIEMBRE");
             listMesMensual.Items.Add("DICIEMBRE");
+
+            txtAnoMensual.Value = DateTime.Today.Year.ToString();
         }
 
         protected void btnGenerarMensual_Click(object sender, EventArgs e)
         {
-            Response.Redirect("reportegananciasHTML.aspx?tipo=mensual&mes=" + listMesMensual.SelectedIndex.ToString()+"&ano=" + txtAnoMensual.Value);
+            Response.Redirect("reportegananciasHTML.aspx?tipo=mensual&mes=" + listMesMensual.SelectedIndex.ToString() + "&ano=" + txtAnoMensual.Value + "&texto=" + listMesMensual.SelectedItem.Text.ToString());
         }
 
         protected void btnGenerarPeriodo_Click(object sender, EventArgs e)

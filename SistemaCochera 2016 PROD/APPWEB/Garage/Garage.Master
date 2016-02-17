@@ -66,7 +66,7 @@
                             <!--<span class="glyphicon glyphicon-stats black-icon"></span>-->
                             REPORTES<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                             <li><a id="A4" runat="server" href="~/Garage/reportemensuales.aspx"><span class="fa fa-file-text-o black-icon">
+                             <li><a id="A4" runat="server" href="~/Garage/reportemensualesHTML.aspx"><span class="fa fa-file-text-o black-icon">
                                 </span> Reporte de Mensuales</a></li>
                                 <li><a id="A20" runat="server" href="~/Garage/reporteganancias.aspx"><span class="fa fa-file-text-o black-icon">
                                 </span> Reporte de Ganancias</a></li>

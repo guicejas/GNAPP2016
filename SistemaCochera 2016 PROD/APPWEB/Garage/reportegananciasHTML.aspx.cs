@@ -19,8 +19,9 @@ namespace APPWEB.Garage
             {
                 string mes = Request.QueryString["mes"];
                 string ano = Request.QueryString["ano"];
+                string texto = Request.QueryString["texto"];
 
-                spanFiltros.InnerText = "Reporte Mes: "+mes+" - Año: "+ano;
+                spanFiltros.InnerText = "Reporte Mes: "+texto+" - Año: "+ano;
 
                 divCode.InnerHtml = CONTROLADORA.ControladoraReporteHTML.ReporteGananciasMensual(mes, ano);
             }
