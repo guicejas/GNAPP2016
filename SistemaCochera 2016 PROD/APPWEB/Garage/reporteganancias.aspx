@@ -71,6 +71,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-lg-2 control-label">
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="checkDetallado" runat="server" checked="checked" />Reporte
+                                detallado por meses
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ValidationGroup="groupMensual"
                         ErrorMessage="Ingrese año para generar el reporte" CssClass="label label-danger"
                         ControlToValidate="txtAnoMensual"></asp:RequiredFieldValidator>
@@ -80,11 +92,10 @@
                 </div>
                 <asp:Button runat="server" ID="btnGenerarMensual" Text="Generar Anual/Mensual" OnClick="btnGenerarMensual_Click"
                     CssClass="btn btn-success" AutoPostBack="true" ValidationGroup="groupMensual" />
-                    <br />
+                <br /><br /><br />
             </fieldset>
         </div>
     </div>
-    
     <div class="form-group col-sm-6">
         <div class="form-horizontal">
             <fieldset>

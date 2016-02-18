@@ -67,6 +67,15 @@ namespace APPWEB.Garage {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtAnoMensual;
         
         /// <summary>
+        /// Control checkDetallado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox checkDetallado;
+        
+        /// <summary>
         /// Control RequiredFieldValidator2.
         /// </summary>
         /// <remarks>

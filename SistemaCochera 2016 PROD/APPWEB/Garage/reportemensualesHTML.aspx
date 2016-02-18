@@ -16,24 +16,22 @@
 </head>
 <body>
     <div class="container body-content">
-            <form id="form1" runat="server">
-    <p id="spanFecha" runat="server" class="text-right"></p>
-        <blockquote>
-        <h2>
-            Reporte de Mensuales</h2>
-
-        <h3>
-            <span id="spanFiltros" runat="server"></span>
-        </h3>
+        <form id="form1" runat="server">
+        <p id="spanFecha" runat="server" class="text-right">
+        </p>
+        <blockquote style="padding-top: 0px; padding-bottom: 0px;">
+            <h2>
+                Reporte de Mensuales</h2>
+            <h3>
+                <span id="spanFiltros" runat="server"></span>
+            </h3>
         </blockquote>
-
         <div id="divCode" runat="server">
         </div>
-        
         </form>
         <a href="index.aspx">Volver</a>
-        <br /><br />
+        <br />
+        <br />
     </div>
-    
 </body>
 </html>

@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="reportegananciasHTML.aspx.cs" Inherits="APPWEB.Garage.reportegananciasHTML" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="reportegananciasHTML.aspx.cs"
+    Inherits="APPWEB.Garage.reportegananciasHTML" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../Styles/bootstrap.css" rel="stylesheet" />
@@ -16,14 +16,20 @@
 </head>
 <body>
     <div class="container body-content">
-    <h2>Reporte de Ganancias</h2>
-    <form id="form1" runat="server">
-    <h4><span id="spanFiltros" runat="server"></span></h4>
-    <div id="divCode" runat="server">
-
+        <form id="form1" runat="server">
+        <p id="spanFecha" runat="server" class="text-right">
+        </p>
+        <blockquote style="padding-top: 0px; padding-bottom: 0px;">
+            <h2>
+                Reporte de Ganancias</h2>
+            <h3>
+                <span id="spanFiltros" runat="server"></span>
+            </h3>
+        </blockquote>
+        <div id="divCode" runat="server">
+        </div>
+        </form>
+        <a href="reporteganancias.aspx">Volver</a>
     </div>
-    </form>
-    </div>
-    <a href="reporteganancias.aspx">Volver</a>
 </body>
 </html>

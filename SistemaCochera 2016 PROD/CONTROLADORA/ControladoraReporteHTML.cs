@@ -10,7 +10,7 @@ namespace CONTROLADORA
     {
         public static string report_string = "";
 
-        public static string ReporteGananciasMensual(string mes, string ano)
+        public static string ReporteGananciasMensual(string mes, string ano, string detallado)
         {
             string report_string = "";
 
@@ -25,7 +25,16 @@ namespace CONTROLADORA
             
             if (oCajas.Count != 0)
             {
-                report_string = GenerarCodigoGanancias(oCajas);
+                report_string += "<table>";
+                report_string += GenerarCodigoGanancias(oCajas);
+                report_string += GenerarCodigoDetalladoGanancias(oCajas);
+                
+                //if (detallado == "1")
+                //{
+                    
+                //}
+
+                report_string += "</table>";
             }
             else
             {
@@ -34,7 +43,7 @@ namespace CONTROLADORA
             return report_string;
         }
 
-        public static string ReporteGananciasPeriodo(string desde, string hasta, int detallado)
+        public static string ReporteGananciasPeriodo(string desde, string hasta, string detallado)
         {
             string report_string = "";
 
@@ -48,14 +57,15 @@ namespace CONTROLADORA
 
             if (oCajas.Count != 0)
             {
+                report_string += "<table>";
                 report_string += GenerarCodigoGanancias(oCajas);
+                report_string += GenerarCodigoDetalladoGanancias(oCajas);
 
-                if (detallado == 1)
-                {
-                    //report_string += GenerarCodigoDetalladoGanancias(oCajas);
-                      
-                }
-
+                //if (detallado == "1")
+                //{
+                    
+                //}
+                report_string += "</table>";
             }
             else
             {
@@ -66,7 +76,7 @@ namespace CONTROLADORA
 
         public static string GenerarCodigoGanancias(List<MODELO.Caja> oCajas)
         {
-            string report_string = "";
+            string report_string = "<tr><td colspan='3'>";
 
             decimal total = oCajas.Sum(x => x.TotalNeto);
             decimal totalDescuentos = oCajas.Sum(x => x.TotalDescuentos);
@@ -77,18 +87,29 @@ namespace CONTROLADORA
             int vehiculosMax = oCajas.Max(x => x.Vehiculo.Count);
             int vehiculosMin = oCajas.Min(x => x.Vehiculo.Count);
             double vehiculosProm = Math.Round(oCajas.Average(x => x.Vehiculo.Count), 2);
-
-            report_string += "<br/>\r\n";
-            report_string += "<b>TOTAL RECAUDADO: $ " + total + "</b><br/><br/>";
-            report_string += "Caja Máxima: $ " + cajamax + "<br/>";
-            report_string += "Caja Mínima: $ " + cajamin + "<br/>";
-            report_string += "Caja Promedio: $ " + cajaprom + "<br/><br/>";
-            report_string += "Total Descuentos Aplicados: $ " + totalDescuentos + "<br/><br/>";
-            report_string += "TOTAL VEHÍCULOS: " + vehiculos + "<br/>";
+            decimal pagosmensuales = oCajas.Sum(x => x.PagoMensual.Sum(y => y.Monto));
+            decimal xhora = oCajas.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Sum(z => z.Precio).Value);
+            decimal xestadia = oCajas.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Sum(z => z.Precio).Value);
+            report_string += "<div class='panel panel-default' style='margin-bottom: 0px'><div class='panel-body'>";
+            report_string += "<p class='text-center'><b><h4>TOTAL RECAUDADO: $ " + total + "</b></h4></p>";
+            report_string += "<table><tr>";
+            report_string += "<td style='padding-right: 20px;'>Caja Máxima: $ " + cajamax + "</td>";
+            report_string += "<td style='padding-right: 20px;'>Caja Mínima: $ " + cajamin + "</td>";
+            report_string += "<td style='padding-right: 20px;'>Caja Promedio: $ " + cajaprom + "</td>";
+            report_string += "</tr></table>";
+            report_string += "<br />";
+            report_string += "<table>";
+            report_string += "<tr><td style='padding-right: 10px;'>Pagos de mensuales: </td><td>$ " + pagosmensuales + "</td></tr>";
+            report_string += "<tr><td style='padding-right: 10px;'>Recaudacion por Hora: </td><td>$ " + xhora + "</td></tr>";
+            report_string += "<tr><td style='padding-right: 10px;'>Recaudacion por Estadias: </td><td>$ " + xestadia + "</td></tr>";
+            report_string += "<tr><td style='padding-right: 10px;'>Total Descuentos Aplicados: </td><td>($ " + totalDescuentos + " )</td></tr>";
+            report_string += "</table><br/>";
+            report_string += "<b>TOTAL VEHÍCULOS: " + vehiculos + "</b><br/>";
             report_string += "Vehículos Máximo: " + vehiculosMax + "<br/>";
             report_string += "Vehículos Mínimo: " + vehiculosMin + "<br/>";
             report_string += "Vehículos Promedio: " + vehiculosProm + "<br/>";
 
+            report_string += "</div></div></td></tr>";
             return report_string;
         }
 
@@ -98,35 +119,71 @@ namespace CONTROLADORA
 
             TimeSpan horamanana = TimeSpan.ParseExact("07", "hh", CultureInfo.InvariantCulture);
             TimeSpan horatarde = TimeSpan.ParseExact("15", "hh", CultureInfo.InvariantCulture);
-            TimeSpan horanoche = TimeSpan.ParseExact("23", "hh", CultureInfo.InvariantCulture);
+            TimeSpan horanoche = TimeSpan.ParseExact("22", "hh", CultureInfo.InvariantCulture);
 
+            report_string += "<tr>";
 
             List<MODELO.Caja> oCajasManana = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horamanana.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horatarde.Hours).ToList();
+            report_string += "<td>";
+            decimal recaudacionmanana = oCajasManana.Sum(x => x.TotalNeto);
+            decimal cajamaxmanana = oCajasManana.Max(x => x.TotalNeto);
+            decimal cajaminmanana = oCajasManana.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+            decimal cajaprommanana = Math.Round(oCajasManana.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            int vehiculosmanana = oCajasManana.Sum(x => x.Vehiculo.Count);
+            int estadiasmanana = oCajasManana.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Count());
+            int xhoramanana = oCajasManana.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Count());
+            decimal mensualesmanana = oCajasManana.Sum(x => x.PagoMensual.Sum(y => y.Monto));
+            report_string += "<div class='panel panel-default'><div class='panel-heading'><h5><b>TURNOS DE MAÑANA</b></h5></div><div class='panel-body'>";
+            report_string += "<b>TOTAL RECAUDADO: $ " + recaudacionmanana + "</b><br/>";
+            report_string += "Caja Máxima: $ " + cajamaxmanana + "<br/>";
+            report_string += "Caja Mínima: $ " + cajaminmanana + "<br/>";
+            report_string += "Caja Promedio: $ " + cajaprommanana + "<br/><br/>";
+            report_string += "Pagos de mensuales: $ " + mensualesmanana + "<br/><br/>";
+            report_string += "<b>TOTAL VEHÍCULOS: " + vehiculosmanana + "</b><br/>";
+            report_string += "Vehículos por Hora: " + xhoramanana + "<br/>";
+            report_string += "Vehículos por Estadia: " + estadiasmanana + "</div></div><br/><br/>";
+            
             List<MODELO.Caja> oCajasTarde = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horatarde.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horanoche.Hours).ToList();
-            List<MODELO.Caja> oCajasNoche = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horanoche.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horamanana.Hours).ToList();
+            report_string += "</td><td>";
+            decimal recaudaciontarde = oCajasTarde.Sum(x => x.TotalNeto);
+            decimal cajamaxtarde = oCajasTarde.Max(x => x.TotalNeto);
+            decimal cajamintarde = oCajasTarde.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+            decimal cajapromtarde = Math.Round(oCajasTarde.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            int vehiculostarde = oCajasTarde.Sum(x => x.Vehiculo.Count);
+            int estadiastarde = oCajasTarde.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Count());
+            int xhoratarde = oCajasTarde.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Count());
+            decimal mensualestarde = oCajasTarde.Sum(x => x.PagoMensual.Sum(y => y.Monto));
+            report_string += "<div class='panel panel-default'><div class='panel-heading'><h5><b>TURNOS DE TARDE</b></h5></div><div class='panel-body'>";
+            report_string += "<b>TOTAL RECAUDADO: $ " + recaudaciontarde + "</b><br/>";
+            report_string += "Caja Máxima: $ " + cajamaxtarde + "<br/>";
+            report_string += "Caja Mínima: $ " + cajamintarde + "<br/>";
+            report_string += "Caja Promedio: $ " + cajapromtarde + "<br/><br/>";
+            report_string += "Pagos de mensuales: $ " + mensualestarde + "<br/><br/>";
+            report_string += "<b>TOTAL VEHÍCULOS: " + vehiculostarde + "</b><br/>";
+            report_string += "Vehículos por Hora: " + xhoratarde + "<br/>";
+            report_string += "Vehículos por Estadia: " + estadiastarde + "</div></div><br/><br/>";
+            
+            List<MODELO.Caja> oCajasNoche = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horanoche.Hours || x.FechaHoraApertura.Value.TimeOfDay.Hours < horamanana.Hours).ToList();
+            report_string += "</td><td>";
+            decimal recaudacionnoche = oCajasNoche.Sum(x => x.TotalNeto);
+            decimal cajamaxnoche = oCajasNoche.Max(x => x.TotalNeto);
+            decimal cajaminnoche = oCajasNoche.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+            decimal cajapromnoche = Math.Round(oCajasNoche.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            int vehiculosnoche = oCajasNoche.Sum(x => x.Vehiculo.Count);
+            int estadiasnoche = oCajasNoche.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Count());
+            int xhoranoche = oCajasNoche.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Count());
+            decimal mensualesnoche = oCajasNoche.Sum(x => x.PagoMensual.Sum(y => y.Monto));
+            report_string += "<div class='panel panel-default'><div class='panel-heading'><h5><b>TURNOS DE NOCHE</b></h5></div><div class='panel-body'>";
+            report_string += "<b>TOTAL RECAUDADO: $ " + recaudacionnoche + "</b><br/>";
+            report_string += "Caja Máxima: $ " + cajamaxnoche + "<br/>";
+            report_string += "Caja Mínima: $ " + cajaminnoche + "<br/>";
+            report_string += "Caja Promedio: $ " + cajapromnoche + "<br/><br/>";
+            report_string += "Pagos de mensuales: $ " + mensualesnoche + "<br/><br/>";
+            report_string += "<b>TOTAL VEHÍCULOS: " + vehiculosnoche + "</b><br/>";
+            report_string += "Vehículos por Hora: " + xhoranoche + "<br/>";
+            report_string += "Vehículos por Estadia: " + estadiasnoche + "</div></div><br/><br/>";
 
-
-
-            decimal total = oCajas.Sum(x => x.TotalNeto);
-            decimal totalDescuentos = oCajas.Sum(x => x.TotalDescuentos);
-            int vehiculos = oCajas.Sum(x => x.Vehiculo.Count);
-            decimal cajamax = oCajas.Max(x => x.TotalNeto);
-            decimal cajamin = oCajas.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
-            decimal cajaprom = Math.Round(oCajas.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
-            int vehiculosMax = oCajas.Max(x => x.Vehiculo.Count);
-            int vehiculosMin = oCajas.Min(x => x.Vehiculo.Count);
-            double vehiculosProm = Math.Round(oCajas.Average(x => x.Vehiculo.Count), 2);
-
-            report_string += "<br/>\r\n";
-            report_string += "<b>TOTAL RECAUDADO: $ " + total + "</b><br/><br/>";
-            report_string += "Caja Máxima: $ " + cajamax + "<br/>";
-            report_string += "Caja Mínima: $ " + cajamin + "<br/>";
-            report_string += "Caja Promedio: $ " + cajaprom + "<br/><br/>";
-            report_string += "Total Descuentos Aplicados: $ " + totalDescuentos + "<br/><br/>";
-            report_string += "TOTAL VEHÍCULOS: " + vehiculos + "<br/>";
-            report_string += "Vehículos Máximo: " + vehiculosMax + "<br/>";
-            report_string += "Vehículos Mínimo: " + vehiculosMin + "<br/>";
-            report_string += "Vehículos Promedio: " + vehiculosProm + "<br/>";
+            report_string += "</td></tr>";
 
             return report_string;
         }

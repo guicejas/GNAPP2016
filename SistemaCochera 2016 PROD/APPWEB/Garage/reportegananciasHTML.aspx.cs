@@ -9,10 +9,13 @@ namespace APPWEB.Garage
 {
     public partial class reportegananciasHTML : System.Web.UI.Page
     {
-        //protected string report_string = gencode();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-ES");
+
+            spanFecha.InnerText = "Garage Nadia - " + DateTime.Now.ToString("dd/MM/yyyy hh:mm");
+
             string tipo = Request.QueryString["tipo"];
 
             if (tipo == "mensual")
@@ -20,21 +23,23 @@ namespace APPWEB.Garage
                 string mes = Request.QueryString["mes"];
                 string ano = Request.QueryString["ano"];
                 string texto = Request.QueryString["texto"];
+                string detalle = Request.QueryString["detalle"];
 
-                spanFiltros.InnerText = "Reporte Mes: "+texto+" - Año: "+ano;
+                spanFiltros.InnerText = "Mes: "+texto+" - Año: "+ano;
 
-                divCode.InnerHtml = CONTROLADORA.ControladoraReporteHTML.ReporteGananciasMensual(mes, ano);
+                divCode.InnerHtml = CONTROLADORA.ControladoraReporteHTML.ReporteGananciasMensual(mes, ano, detalle);
             }
 
             if (tipo == "periodo")
             {
                 string desde = Request.QueryString["desde"];
                 string hasta = Request.QueryString["hasta"];
+                string detalle = Request.QueryString["detalle"];
 
                 spanFiltros.InnerText = "Reporte Desde: " + desde + " - Hasta: " + hasta;
 
 
-                divCode.InnerHtml = CONTROLADORA.ControladoraReporteHTML.ReporteGananciasPeriodo(desde, hasta);
+                divCode.InnerHtml = CONTROLADORA.ControladoraReporteHTML.ReporteGananciasPeriodo(desde, hasta, detalle);
             }
 
 
