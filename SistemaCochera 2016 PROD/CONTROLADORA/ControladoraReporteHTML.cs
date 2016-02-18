@@ -34,7 +34,7 @@ namespace CONTROLADORA
             return report_string;
         }
 
-        public static string ReporteGananciasPeriodo(string desde, string hasta)
+        public static string ReporteGananciasPeriodo(string desde, string hasta, int detallado)
         {
             string report_string = "";
 
@@ -48,7 +48,13 @@ namespace CONTROLADORA
 
             if (oCajas.Count != 0)
             {
-                report_string = GenerarCodigoGanancias(oCajas);
+                report_string += GenerarCodigoGanancias(oCajas);
+
+                if (detallado == 1)
+                {
+                    //report_string += GenerarCodigoDetalladoGanancias(oCajas);
+                      
+                }
 
             }
             else
@@ -66,8 +72,47 @@ namespace CONTROLADORA
             decimal totalDescuentos = oCajas.Sum(x => x.TotalDescuentos);
             int vehiculos = oCajas.Sum(x => x.Vehiculo.Count);
             decimal cajamax = oCajas.Max(x => x.TotalNeto);
-            decimal cajamin = oCajas.Min(x => x.TotalNeto);
-            decimal cajaprom = Math.Round(oCajas.Average(x => x.TotalNeto), 2);
+            decimal cajamin = oCajas.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+            decimal cajaprom = Math.Round(oCajas.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            int vehiculosMax = oCajas.Max(x => x.Vehiculo.Count);
+            int vehiculosMin = oCajas.Min(x => x.Vehiculo.Count);
+            double vehiculosProm = Math.Round(oCajas.Average(x => x.Vehiculo.Count), 2);
+
+            report_string += "<br/>\r\n";
+            report_string += "<b>TOTAL RECAUDADO: $ " + total + "</b><br/><br/>";
+            report_string += "Caja Máxima: $ " + cajamax + "<br/>";
+            report_string += "Caja Mínima: $ " + cajamin + "<br/>";
+            report_string += "Caja Promedio: $ " + cajaprom + "<br/><br/>";
+            report_string += "Total Descuentos Aplicados: $ " + totalDescuentos + "<br/><br/>";
+            report_string += "TOTAL VEHÍCULOS: " + vehiculos + "<br/>";
+            report_string += "Vehículos Máximo: " + vehiculosMax + "<br/>";
+            report_string += "Vehículos Mínimo: " + vehiculosMin + "<br/>";
+            report_string += "Vehículos Promedio: " + vehiculosProm + "<br/>";
+
+            return report_string;
+        }
+
+        public static string GenerarCodigoDetalladoGanancias(List<MODELO.Caja> oCajas)
+        {
+            string report_string = "";
+
+            TimeSpan horamanana = TimeSpan.ParseExact("07", "hh", CultureInfo.InvariantCulture);
+            TimeSpan horatarde = TimeSpan.ParseExact("15", "hh", CultureInfo.InvariantCulture);
+            TimeSpan horanoche = TimeSpan.ParseExact("23", "hh", CultureInfo.InvariantCulture);
+
+
+            List<MODELO.Caja> oCajasManana = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horamanana.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horatarde.Hours).ToList();
+            List<MODELO.Caja> oCajasTarde = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horatarde.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horanoche.Hours).ToList();
+            List<MODELO.Caja> oCajasNoche = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horanoche.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horamanana.Hours).ToList();
+
+
+
+            decimal total = oCajas.Sum(x => x.TotalNeto);
+            decimal totalDescuentos = oCajas.Sum(x => x.TotalDescuentos);
+            int vehiculos = oCajas.Sum(x => x.Vehiculo.Count);
+            decimal cajamax = oCajas.Max(x => x.TotalNeto);
+            decimal cajamin = oCajas.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+            decimal cajaprom = Math.Round(oCajas.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
             int vehiculosMax = oCajas.Max(x => x.Vehiculo.Count);
             int vehiculosMin = oCajas.Min(x => x.Vehiculo.Count);
             double vehiculosProm = Math.Round(oCajas.Average(x => x.Vehiculo.Count), 2);
@@ -145,6 +190,10 @@ namespace CONTROLADORA
             } 
             
             return report_string;
+        }
+
+        public static void ReporteFacturacion()
+        {
         }
 
     }
