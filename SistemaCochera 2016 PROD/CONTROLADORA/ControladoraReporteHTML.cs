@@ -249,9 +249,61 @@ namespace CONTROLADORA
             return report_string;
         }
 
-        public static void ReporteFacturacion()
+
+        public static string ReporteFacturacion(string tipoMensual, string tipoFactura)
         {
+            string report_string = "";
+
+            List<MODELO.Mensual> oMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.OrderBy(x=> x.NombreApellido).ToList();
+
+            if (tipoMensual != "TODOS")
+            {
+                oMensuales = oMensuales.Where(x => x.TipoMensual == tipoMensual).ToList();
+            }
+            if (tipoFactura != "TODOS")
+            {
+                oMensuales = oMensuales.Where(x => x.TipoFactura == tipoFactura).ToList();
+            }
+
+
+            return report_string;
+               
         }
+
+
+        public static string GenerarCodigoFacturacion(List<MODELO.Mensual> oMensuales)
+        {
+            string report_string = "";
+
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-ES");
+            string MES = DateTime.ParseExact("2/01/01", "M/dd/yy", culture).ToString("MMMM", culture).ToUpper();
+
+            for (int i = 0; i < oMensuales.Count; i++)
+            {
+
+                report_string += "<td>" + (i + 1) + "</td><td>" + oMensuales[i].NombreApellido.ToString() + "</td>";
+
+                if (oMensuales[i].PagoMensual.Count > 0)
+                {
+                    object mes = oMensuales[i].PagoMensual.LastOrDefault().MesSaldado;
+                    report_string += "<td>" + Convert.ToDateTime(mes + "/01/01").ToString("MMMM", culture).ToUpper() + " (" + mes + ")" + "</td>";
+                    report_string += "<td>" + oMensuales[i].PagoMensual.LastOrDefault().Fecha.ToString("dd/MM/yyyy") + "</td>";
+                    report_string += "<tr>";
+                }
+                else
+                {
+                    report_string += "<td></td>";
+                    report_string += "<td></td>";
+                    report_string += "<tr>";
+                }
+
+
+            }
+
+            return report_string;
+        }
+
+
 
     }
 }
