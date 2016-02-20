@@ -70,7 +70,7 @@
                                 </span> Reporte de Mensuales</a></li>
                                 <li><a id="A20" runat="server" href="~/Garage/reporteganancias.aspx"><span class="fa fa-file-text-o black-icon">
                                 </span> Reporte de Ganancias</a></li>
-                                <li><a id="A21" runat="server" href="~/Garage/reportefacturacion.aspx"><span class="fa fa-file-text-o black-icon"></span>
+                                <li><a id="A21" runat="server" href="~/Garage/reportefacturacionHTML.aspx"><span class="fa fa-file-text-o black-icon"></span>
                                     Reporte de Facturación</a></li>
                             </ul>
                         </li>

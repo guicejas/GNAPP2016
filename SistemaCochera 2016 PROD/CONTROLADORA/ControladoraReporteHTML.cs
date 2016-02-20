@@ -249,9 +249,85 @@ namespace CONTROLADORA
             return report_string;
         }
 
-        public static void ReporteFacturacion()
+
+        public static string ReporteFacturacion(string tipoMensual, string tipoFactura)
         {
+            string report_string = "";
+
+            List<MODELO.Mensual> oMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.Where(x=> x.Activo == true).OrderBy(x=> x.NombreApellido).ToList();
+
+            if (tipoMensual != "TODOS")
+            {
+                oMensuales = oMensuales.Where(x => x.TipoMensual == tipoMensual).ToList();
+            }
+            if (tipoFactura != "TODOS")
+            {
+                oMensuales = oMensuales.Where(x => x.TipoFactura == tipoFactura).ToList();
+            }
+
+            report_string = GenerarCodigoFacturacion(oMensuales);
+
+            return report_string;
+               
         }
+
+
+        public static string GenerarCodigoFacturacion(List<MODELO.Mensual> oMensuales)
+        {
+            string report_string = "";
+
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-ES");
+            string MES = DateTime.ParseExact("2/01/01", "M/dd/yy", culture).ToString("MMMM", culture).ToUpper();
+
+            for (int i = 0; i < oMensuales.Count; i++)
+            {
+
+                report_string += "<div class='panel panel-default'><div class='panel-heading'><h5> Cod: " + oMensuales[i].Codigo.ToString() + "  -  <b>" + oMensuales[i].NombreApellido.ToString().ToUpper() + "</b></h5></div><div class='panel-body'>";
+                report_string += "<table><tr>";
+                report_string += "<td colspan='2' style='padding-right: 20px;'><b>Mensualidad: </b>" + oMensuales[i].TipoMensual + "<br/>";
+                report_string += "</tr><tr>";
+                report_string += "<td style='padding-right: 20px;'><b>Domicilio: </b>" + oMensuales[i].Domicilio.ToUpper() + "<br/></td>";
+                report_string += "<td style='padding-right: 20px;'><b>Telefono: </b>" + oMensuales[i].Telefono + "<br/></td>";
+                report_string += "</tr></table><br/>";
+                report_string += "<b>FACTURA: " + oMensuales[i].TipoFactura + "</b><br/>";
+                if (oMensuales[i].RazonSocial != "")
+                {
+                    report_string += "<b>Razon Social: </b>" + oMensuales[i].RazonSocial.ToUpper() + "<br/>";
+                }
+                else
+                {
+                    report_string += "<b>Razon Social: </b>" + oMensuales[i].NombreApellido.ToUpper() + "<br/>";
+                }
+                if (oMensuales[i].DomicilioFiscal != "")
+                {
+                    report_string += "<b>Domicilio Fiscal: </b>" + oMensuales[i].DomicilioFiscal.ToUpper() + "<br/>";
+                }
+                else
+                {
+                    report_string += "<b>Domicilio Fiscal: </b>" + oMensuales[i].Domicilio.ToUpper() + "<br/>";
+                }
+
+                report_string += "<b>CUIT/CUIL: </b>" + oMensuales[i].CUIL + "<br/><br/>";
+                report_string += "<b>IMPORTE: $ " + oMensuales[i].PrecioSugerido.Value.ToString("0.00") + "</b><br/><br/>";
+
+                if (oMensuales[i].TipoFactura == "A")
+                {
+                    report_string += "<b>Importe sin IVA: </b>$ " + (oMensuales[i].PrecioSugerido.Value * (decimal)0.79).ToString("0.00") + "<br/>";
+                    report_string += "<b>IVA: </b>$ " + (oMensuales[i].PrecioSugerido.Value * (decimal)0.21).ToString("0.00") + "<br/><br/>";
+                }
+                report_string += "<table><tr>";
+                report_string += "<td style='padding-right: 20px;'><b>Vehiculo: </b>" + oMensuales[i].Vehiculo.ToUpper() + "<br/></td>";
+                report_string += "<td style='padding-right: 20px;'><b>Patente: </b>" + oMensuales[i].Patente.ToUpper() + "<br/></td>";
+                report_string += "</tr><tr>";
+                report_string += "<td colspan='2' style='padding-right: 20px;'><b>Observaciones: </b>" + oMensuales[i].Observaciones.ToUpper() + "<br/><br/>";
+                report_string += "</tr></table>";
+                report_string += "<p class='text-right' style='font-size: 12px;'><b>Fecha de Alta: </b>" + oMensuales[i].FechaAlta.ToString("dd/MM/yyyy") + "</p></div></div><br/>";
+            }
+
+            return report_string;
+        }
+
+
 
     }
 }
