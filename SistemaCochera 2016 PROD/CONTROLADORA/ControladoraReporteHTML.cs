@@ -254,7 +254,11 @@ namespace CONTROLADORA
         {
             string report_string = "";
 
+<<<<<<< HEAD
             List<MODELO.Mensual> oMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.Where(x=> x.Activo == true).OrderBy(x=> x.NombreApellido).ToList();
+=======
+            List<MODELO.Mensual> oMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.OrderBy(x=> x.NombreApellido).ToList();
+>>>>>>> 77084f32ae8948ebb3ef0d3094fac981d039f966
 
             if (tipoMensual != "TODOS")
             {
@@ -265,6 +269,7 @@ namespace CONTROLADORA
                 oMensuales = oMensuales.Where(x => x.TipoFactura == tipoFactura).ToList();
             }
 
+<<<<<<< HEAD
             report_string = GenerarCodigoFacturacion(oMensuales);
 
             return report_string;
@@ -326,7 +331,6 @@ namespace CONTROLADORA
 
             return report_string;
         }
-
 
 
     }
