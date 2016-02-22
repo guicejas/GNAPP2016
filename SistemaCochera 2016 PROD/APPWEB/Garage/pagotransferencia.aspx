@@ -32,6 +32,13 @@
     </div>
     <h3>
         Registrar pago por Transferencia</h3>
+        <asp:ScriptManager ID="ScriptManager1" AllowCustomErrorsRedirect="false" runat="server">
+    </asp:ScriptManager>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <script type="text/javascript">                Sys.Application.add_load(Calendario); </script>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <br />
     <div class="form-group col-sm-6">
         <div class="form-horizontal">

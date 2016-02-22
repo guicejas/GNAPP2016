@@ -21,7 +21,7 @@ namespace APPWEB.Garage
                 MODELO.Mensual editMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(nro);
 
                 lblTitulo.InnerText = editMensual.Codigo + " - " + editMensual.NombreApellido;
-                txtFechadePago.Value = DateTime.Today.ToShortDateString();
+                txtFechadePago.Value = DateTime.Today.ToString("dd/MM/yyyy");
 
 
                 try
