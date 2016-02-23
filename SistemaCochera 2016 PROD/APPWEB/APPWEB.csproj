@@ -82,10 +82,15 @@
     <Content Include="Garage\test.aspx" />
     <Content Include="Garage\vehiculos.aspx" />
     <Content Include="Garage\vermensual.aspx" />
+    <Content Include="Img\delete.png" />
+    <Content Include="Img\dollar.png" />
+    <Content Include="Img\edit.png" />
     <Content Include="Img\logo.png" />
     <Content Include="Img\Logo2.PNG" />
     <Content Include="Img\Logo3.png" />
     <Content Include="Img\Logo4.png" />
+    <Content Include="Img\search.png" />
+    <Content Include="Img\user.png" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="Scripts\bootstrap-datepicker.es.min.js" />

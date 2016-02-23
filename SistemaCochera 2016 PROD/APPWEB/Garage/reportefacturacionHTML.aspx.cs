@@ -15,7 +15,7 @@ namespace APPWEB.Garage
 
             spanFecha.InnerText = "Garage Nadia - " + DateTime.Now.ToString("dd/MM/yyyy hh:mm");
 
-            divCode.InnerHtml = CONTROLADORA.ControladoraReporteHTML.ReporteFacturacion("TODOS","TODOS");
+            divCode.InnerHtml = CONTROLADORA.ControladoraReporteHTML.ReporteFacturacion(radiotipoMensual.SelectedValue, radioTipoFactura.SelectedValue);
 
 
         }

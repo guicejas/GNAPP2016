@@ -24,12 +24,14 @@ namespace APPWEB.Garage
                 txtPrecioHora.Value = selected.PrecioHora.ToString();
                 txtPrecioEstadia12.Value = selected.PrecioMediaEstadia.ToString();
                 txtPrecioEstadia24.Value = selected.PrecioEstadia.ToString();
+                txtCambioMediaEstadia.Value = selected.TiempoCambioEstadia.Value.ToString();
                 spanClase.InnerText = selected.Descripcion; 
             }
 
             txtPrecioHora.Disabled = true;
             txtPrecioEstadia12.Disabled = true;
             txtPrecioEstadia24.Disabled = true;
+            txtCambioMediaEstadia.Disabled = true;
 
             btnGuardar.Enabled = false;
             btnCancelar.Enabled = false;
@@ -41,6 +43,7 @@ namespace APPWEB.Garage
             txtPrecioHora.Disabled = false;
             txtPrecioEstadia12.Disabled = false;
             txtPrecioEstadia24.Disabled = false;
+            txtCambioMediaEstadia.Disabled = false;
 
             btnGuardar.Enabled = true;
             btnCancelar.Enabled = true;
@@ -55,6 +58,9 @@ namespace APPWEB.Garage
             oClase.PrecioHora = Convert.ToDecimal(txtPrecioHora.Value);
             oClase.PrecioMediaEstadia = Convert.ToDecimal(txtPrecioEstadia12.Value);
             oClase.PrecioEstadia = Convert.ToDecimal(txtPrecioEstadia24.Value);
+            if (txtCambioMediaEstadia.Value != "")
+                oClase.TiempoCambioEstadia = Convert.ToInt32(txtCambioMediaEstadia.Value);
+
 
             MODELO.Contexto.ObtenerInstancia().Clases.ApplyCurrentValues(oClase);
             MODELO.Contexto.ObtenerInstancia().SaveChanges();
@@ -63,6 +69,7 @@ namespace APPWEB.Garage
             txtPrecioHora.Disabled = true;
             txtPrecioEstadia12.Disabled = true;
             txtPrecioEstadia24.Disabled = true;
+            txtCambioMediaEstadia.Disabled = true;
 
             btnGuardar.Enabled = false;
             btnCancelar.Enabled = false;
@@ -77,10 +84,12 @@ namespace APPWEB.Garage
             txtPrecioHora.Value = selected.PrecioHora.ToString();
             txtPrecioEstadia12.Value = selected.PrecioMediaEstadia.ToString();
             txtPrecioEstadia24.Value = selected.PrecioEstadia.ToString();
+            txtCambioMediaEstadia.Value = selected.TiempoCambioEstadia.Value.ToString();
 
             txtPrecioHora.Disabled = true;
             txtPrecioEstadia12.Disabled = true;
             txtPrecioEstadia24.Disabled = true;
+            txtCambioMediaEstadia.Disabled = true;
 
             btnGuardar.Enabled = false;
             btnCancelar.Enabled = false;
@@ -97,11 +106,13 @@ namespace APPWEB.Garage
             txtPrecioEstadia24.Value = selected.PrecioEstadia.ToString();
             txtDescripcion.Text = selected.Descripcion;
             txtCodigo.Text = selected.Codigo;
+            txtCambioMediaEstadia.Value = selected.TiempoCambioEstadia.Value.ToString();
             spanClase.InnerText = selected.Descripcion; 
 
             txtPrecioHora.Disabled = true;
             txtPrecioEstadia12.Disabled = true;
             txtPrecioEstadia24.Disabled = true;
+            txtCambioMediaEstadia.Disabled = true;
 
             btnGuardar.Enabled = false;
             btnCancelar.Enabled = false;

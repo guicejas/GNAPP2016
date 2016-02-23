@@ -1,25 +1,35 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Garage/Garage.Master" AutoEventWireup="true" CodeBehind="pagotransferencia.aspx.cs" Inherits="APPWEB.Garage.pagotransferencia" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContentGarage" runat="server">
-    <script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="../Scripts/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript">
 
         function validateAndConfirm(message) {
-            var validated = Page_ClientValidate('groupNumericos');
+            var validated = Page_ClientValidate('groupMensual');
             if (validated) {
                 return confirm(message);
             }
         }
 
-          function Calendario() {
-              $(function () {
-                  $(".calendario").datepicker({
-                      dateFormat: "dd/mm/yy",
-                      changeMonth: true,
-                      changeYear: true,
-                      showAnim: "slideDown"
-                  });
-              });
-          }
-  </script>
+        function validateAndConfirm(message) {
+            var validated = Page_ClientValidate('groupPeriodo');
+            if (validated) {
+                return confirm(message);
+            }
+        }
+
+        function Calendario() {
+            $(function () {
+                $(".calendario").datepicker({
+                    dateFormat: "dd/mm/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    showAnim: "slideDown"
+                });
+            });
+        }
+    </script>
     <form id="Form1" runat="server">
     <div class="br">
     </div>

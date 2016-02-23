@@ -40,6 +40,24 @@ namespace APPWEB.Garage {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanFecha;
         
         /// <summary>
+        /// Control radioTipoFactura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList radioTipoFactura;
+        
+        /// <summary>
+        /// Control radiotipoMensual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList radiotipoMensual;
+        
+        /// <summary>
         /// Control divCode.
         /// </summary>
         /// <remarks>

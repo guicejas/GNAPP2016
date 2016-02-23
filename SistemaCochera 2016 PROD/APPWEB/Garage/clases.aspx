@@ -84,6 +84,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="txtCambioMediaEstadia" class="col-lg-2 control-label">
+                        Cambio a 1/2 estadia</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            
+                            <input type="text" id="txtCambioMediaEstadia" runat="server" class="form-control" disabled
+                                 />
+                            <span class="input-group-addon">horas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <asp:RegularExpressionValidator ID="validation1" ValidationGroup="groupNumericos"
                         runat="server" ValidationExpression="((\d+)((\,\d{1,2})?))$" ErrorMessage="Ingrese un monto numérico para el precio por Hora."
                         CssClass="label label-danger" ControlToValidate="txtPrecioHora" />
@@ -101,6 +113,11 @@
                         CssClass="label label-danger" ControlToValidate="txtPrecioEstadia24" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ValidationGroup="groupNumericos"
                         ErrorMessage="Ingrese un precio por 24Hs" CssClass="label label-danger" ControlToValidate="txtPrecioEstadia24"></asp:RequiredFieldValidator>
+                    <br />
+                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ValidationGroup="groupNumericos"
+                        runat="server" ValidationExpression="((\d+))$" ErrorMessage="Ingrese un monto numérico el cambio a 1/2 estadia."
+                        CssClass="label label-danger" ControlToValidate="txtCambioMediaEstadia" />
+
                     <br />
                     <div class="col-lg-10 col-lg-offset-2">
                         <asp:Button runat="server" ID="btnEditar" Text="Editar" OnClick="btnEditar_Click"

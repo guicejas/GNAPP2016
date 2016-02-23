@@ -38,7 +38,7 @@ namespace APPWEB.Garage
                 {
                 }
 
-                try { txtMontoAbonado.Value = editMensual.PrecioSugerido.ToString(); }
+                try { txtMontoAbonado.Value = Convert.ToDecimal(editMensual.PrecioSugerido).ToString("0"); }
                 catch { }
 
 

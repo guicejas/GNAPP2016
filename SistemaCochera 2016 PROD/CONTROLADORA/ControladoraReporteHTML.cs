@@ -15,18 +15,25 @@ namespace CONTROLADORA
             string report_string = "";
 
             List<MODELO.Caja> oCajas = MODELO.Contexto.ObtenerInstancia().Cajas.ToList();
+            List<MODELO.PagoMensual> oPagosMensuales = MODELO.Contexto.ObtenerInstancia().PagoMensuales.Where(x => x.Caja == null).ToList();
 
             if (Convert.ToInt32(mes) > 0)
+            {
                 oCajas = oCajas.Where(x => x.FechaHoraApertura.Value.Month == Convert.ToInt32(mes)).ToList();
+                oPagosMensuales = oPagosMensuales.Where(x => x.Fecha.Month == Convert.ToInt32(mes)).ToList();
+            }
 
             if (ano != "")
-                oCajas = oCajas.Where(x => x.FechaHoraApertura.Value.Year == Convert.ToInt32(ano)).ToList();
+            {
+            oCajas = oCajas.Where(x => x.FechaHoraApertura.Value.Year == Convert.ToInt32(ano)).ToList();
+            oPagosMensuales = oPagosMensuales.Where(x => x.Fecha.Year == Convert.ToInt32(ano)).ToList();
+            }
 
-            
-            if (oCajas.Count != 0)
+
+            if (oCajas.Count > 0 || oPagosMensuales.Count > 0)
             {
                 report_string += "<table>";
-                report_string += GenerarCodigoGanancias(oCajas);
+                report_string += GenerarCodigoGanancias(oCajas, oPagosMensuales);
                 report_string += GenerarCodigoDetalladoGanancias(oCajas);
                 
                 //if (detallado == "1")
@@ -48,17 +55,19 @@ namespace CONTROLADORA
             string report_string = "";
 
             List<MODELO.Caja> oCajas = MODELO.Contexto.ObtenerInstancia().Cajas.ToList();
+            List<MODELO.PagoMensual> oPagosMensuales = MODELO.Contexto.ObtenerInstancia().PagoMensuales.Where(x=> x.Caja== null).ToList();
 
             IFormatProvider culture = new CultureInfo("en-US", true);
             DateTime dtdesde = DateTime.ParseExact(desde, "dd/MM/yyyy", culture);
             DateTime dthasta = DateTime.ParseExact(hasta, "dd/MM/yyyy", culture);
 
             oCajas = oCajas.Where(x => x.FechaHoraApertura.Value.ToUniversalTime() >= dtdesde && x.FechaHoraApertura.Value.ToUniversalTime() <= dthasta).ToList();
+            oPagosMensuales = oPagosMensuales.Where(x => x.Fecha.ToUniversalTime() >= dtdesde && x.Fecha.ToUniversalTime() <= dthasta).ToList();
 
-            if (oCajas.Count != 0)
+            if (oCajas.Count > 0 || oPagosMensuales.Count > 0)
             {
                 report_string += "<table>";
-                report_string += GenerarCodigoGanancias(oCajas);
+                report_string += GenerarCodigoGanancias(oCajas, oPagosMensuales);
                 report_string += GenerarCodigoDetalladoGanancias(oCajas);
 
                 //if (detallado == "1")
@@ -74,22 +83,37 @@ namespace CONTROLADORA
             return report_string;
         }
 
-        public static string GenerarCodigoGanancias(List<MODELO.Caja> oCajas)
+        public static string GenerarCodigoGanancias(List<MODELO.Caja> oCajas, List<MODELO.PagoMensual> oPagoMensuales)
         {
             string report_string = "<tr><td colspan='3'>";
 
             decimal total = oCajas.Sum(x => x.TotalNeto);
+            decimal pagostransferencia = oPagoMensuales.Sum(x => x.Monto);
+            total += pagostransferencia;
             decimal totalDescuentos = oCajas.Sum(x => x.TotalDescuentos);
             int vehiculos = oCajas.Sum(x => x.Vehiculo.Count);
-            decimal cajamax = oCajas.Max(x => x.TotalNeto);
-            decimal cajamin = oCajas.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
-            decimal cajaprom = Math.Round(oCajas.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
-            int vehiculosMax = oCajas.Max(x => x.Vehiculo.Count);
-            int vehiculosMin = oCajas.Min(x => x.Vehiculo.Count);
-            double vehiculosProm = Math.Round(oCajas.Average(x => x.Vehiculo.Count), 2);
+            decimal cajamax = 0;
+             int vehiculosMax = 0;
+             int vehiculosMin = 0;
+             double vehiculosProm = 0;
+            if (oCajas.Count > 0)
+            {
+                cajamax = oCajas.Max(x => x.TotalNeto);
+                vehiculosMax = oCajas.Max(x => x.Vehiculo.Count);
+                vehiculosMin = oCajas.Min(x => x.Vehiculo.Count);
+                vehiculosProm = Math.Round(oCajas.Average(x => x.Vehiculo.Count), 2);
+            }
+            decimal cajamin = 0;
+            decimal cajaprom = 0;
+            if (oCajas.Where(x => x.TotalNeto > 0).Count() > 0)
+            {
+                cajamin = oCajas.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+                cajaprom = Math.Round(oCajas.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            }
             decimal pagosmensuales = oCajas.Sum(x => x.PagoMensual.Sum(y => y.Monto));
             decimal xhora = oCajas.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Sum(z => z.Precio).Value);
             decimal xestadia = oCajas.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Sum(z => z.Precio).Value);
+
             report_string += "<div class='panel panel-default' style='margin-bottom: 0px'><div class='panel-body'>";
             report_string += "<p class='text-center'><b><h4>TOTAL RECAUDADO: $ " + total + "</b></h4></p>";
             report_string += "<table><tr>";
@@ -99,7 +123,8 @@ namespace CONTROLADORA
             report_string += "</tr></table>";
             report_string += "<br />";
             report_string += "<table>";
-            report_string += "<tr><td style='padding-right: 10px;'>Pagos de mensuales: </td><td>$ " + pagosmensuales + "</td></tr>";
+            report_string += "<tr><td style='padding-right: 10px;'>Pagos mensuales Efectivo: </td><td>$ " + pagosmensuales + "</td></tr>";
+            report_string += "<tr><td style='padding-right: 10px;'>Pagos por Transferencia: </td><td>$ " + pagostransferencia + "</td></tr>";
             report_string += "<tr><td style='padding-right: 10px;'>Recaudacion por Hora: </td><td>$ " + xhora + "</td></tr>";
             report_string += "<tr><td style='padding-right: 10px;'>Recaudacion por Estadias: </td><td>$ " + xestadia + "</td></tr>";
             report_string += "<tr><td style='padding-right: 10px;'>Total Descuentos Aplicados: </td><td>($ " + totalDescuentos + " )</td></tr>";
@@ -126,9 +151,16 @@ namespace CONTROLADORA
             List<MODELO.Caja> oCajasManana = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horamanana.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horatarde.Hours).ToList();
             report_string += "<td>";
             decimal recaudacionmanana = oCajasManana.Sum(x => x.TotalNeto);
-            decimal cajamaxmanana = oCajasManana.Max(x => x.TotalNeto);
-            decimal cajaminmanana = oCajasManana.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
-            decimal cajaprommanana = Math.Round(oCajasManana.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            decimal cajamaxmanana = 0;
+            if (oCajasManana.Count > 0)
+            { cajamaxmanana = oCajasManana.Max(x => x.TotalNeto); }
+            decimal cajaminmanana = 0;
+            decimal cajaprommanana = 0;
+            if (oCajasManana.Where(x => x.TotalNeto > 0).Count() > 0)
+            {
+                cajaminmanana = oCajasManana.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+                cajaprommanana = Math.Round(oCajasManana.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            }
             int vehiculosmanana = oCajasManana.Sum(x => x.Vehiculo.Count);
             int estadiasmanana = oCajasManana.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Count());
             int xhoramanana = oCajasManana.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Count());
@@ -146,9 +178,16 @@ namespace CONTROLADORA
             List<MODELO.Caja> oCajasTarde = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horatarde.Hours && x.FechaHoraApertura.Value.TimeOfDay.Hours < horanoche.Hours).ToList();
             report_string += "</td><td>";
             decimal recaudaciontarde = oCajasTarde.Sum(x => x.TotalNeto);
-            decimal cajamaxtarde = oCajasTarde.Max(x => x.TotalNeto);
-            decimal cajamintarde = oCajasTarde.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
-            decimal cajapromtarde = Math.Round(oCajasTarde.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            decimal cajamaxtarde = 0;
+            if (oCajasTarde.Count > 0)
+            { cajamaxtarde = oCajasTarde.Max(x => x.TotalNeto); }
+            decimal cajamintarde = 0;
+            decimal cajapromtarde = 0;
+            if (oCajasTarde.Where(x => x.TotalNeto > 0).Count() > 0)
+            {
+                cajamintarde = oCajasTarde.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+                cajapromtarde = Math.Round(oCajasTarde.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            }
             int vehiculostarde = oCajasTarde.Sum(x => x.Vehiculo.Count);
             int estadiastarde = oCajasTarde.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Count());
             int xhoratarde = oCajasTarde.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Count());
@@ -166,9 +205,16 @@ namespace CONTROLADORA
             List<MODELO.Caja> oCajasNoche = oCajas.Where(x => x.FechaHoraApertura.Value.TimeOfDay.Hours >= horanoche.Hours || x.FechaHoraApertura.Value.TimeOfDay.Hours < horamanana.Hours).ToList();
             report_string += "</td><td>";
             decimal recaudacionnoche = oCajasNoche.Sum(x => x.TotalNeto);
-            decimal cajamaxnoche = oCajasNoche.Max(x => x.TotalNeto);
-            decimal cajaminnoche = oCajasNoche.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
-            decimal cajapromnoche = Math.Round(oCajasNoche.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            decimal cajamaxnoche = 0;
+            if (oCajasNoche.Count > 0)
+            { cajamaxnoche = oCajasNoche.Max(x => x.TotalNeto); }
+            decimal cajaminnoche = 0;
+            decimal cajapromnoche = 0;
+            if (oCajasNoche.Where(x => x.TotalNeto > 0).Count() > 0)
+            {
+                cajaminnoche = oCajasNoche.Where(x => x.TotalNeto > 0).Min(x => x.TotalNeto);
+                cajapromnoche = Math.Round(oCajasNoche.Where(x => x.TotalNeto > 0).Average(x => x.TotalNeto), 2);
+            }
             int vehiculosnoche = oCajasNoche.Sum(x => x.Vehiculo.Count);
             int estadiasnoche = oCajasNoche.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo == "9").Count());
             int xhoranoche = oCajasNoche.Sum(x => x.Vehiculo.Where(y => y.Clase.Codigo != "9").Count());
@@ -193,23 +239,23 @@ namespace CONTROLADORA
             string report_string = "";
 
             List<MODELO.Mensual> oMensuales = MODELO.Contexto.ObtenerInstancia().Mensuales.Where(x => x.Activo == true).ToList();
-            List<MODELO.Mensual> oMensualesPagaron = oMensuales.Where(x => (x.PagoMensual.Count > 0)).Where(x => x.PagoMensual.Last().MesSaldado == DateTime.Today.Month && x.PagoMensual.Last().Fecha.Year == DateTime.Today.Year).ToList();
+            List<MODELO.Mensual> oMensualesPagaron = oMensuales.Where(x => (x.PagoMensual.Count > 0)).Where(x => x.PagoMensual.Last().MesSaldado >= DateTime.Today.Month && x.PagoMensual.Last().Fecha.Year == DateTime.Today.Year).ToList();
             List<MODELO.Mensual> oMensualesDeben = oMensuales.Where(x => (x.PagoMensual.Count < 1) || (x.PagoMensual.Last().MesSaldado < DateTime.Today.Month && x.PagoMensual.Last().Fecha.Year == DateTime.Today.Year)).ToList();
 
 
-            if (oMensualesDeben.Count != 0)
+            if (oMensualesDeben.Count > 0)
             {
                 report_string += "<h4 class='text-danger'><b>Mensuales morosos</b></h4><table class='table table-striped table-hover'><thead><tr><th>#</th><th>Nombre y Apellido</th><th>Ultimo mes pago</th><th>Fecha de ultimo pago</th></tr></thead><tbody><tr>";
                 report_string += GenerarCodigoMensuales(oMensualesDeben);
                 report_string += "</tr></tbody></table>";
             }
-            if (oMensualesPagaron.Count != 0)
+            if (oMensualesPagaron.Count > 0)
             {
                 report_string += "<h4 class='text-success'><b>Mensuales al dia</b></h4><table class='table table-striped table-hover'><thead><tr><th>#</th><th>Nombre y Apellido</th><th>Ultimo mes pago</th><th>Fecha de ultimo pago</th></tr></thead><tbody><tr>";
                 report_string += GenerarCodigoMensuales(oMensualesPagaron.OrderByDescending(x => x.PagoMensual.LastOrDefault().Fecha).ToList());
                 report_string += "</tr></tbody></table>";
             }
-            else if (oMensualesPagaron.Count == 0)
+            if (oMensualesPagaron.Count == 0 && oMensualesDeben.Count == 0)
             {
                 report_string = "<br/>NO HAY DATOS<br/>";
             }
@@ -221,8 +267,8 @@ namespace CONTROLADORA
             string report_string = "";
 
 
-            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-ES");
-            string MES = DateTime.ParseExact("2/01/01", "M/dd/yy", culture).ToString("MMMM", culture).ToUpper();
+            //System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-ES");
+            //string MES = DateTime.ParseExact("2/01/01", "M/dd/yy", culture).ToString("MMMM", culture).ToUpper();
 
             for (int i = 0; i < oMensuales.Count; i++)
             {
@@ -231,8 +277,10 @@ namespace CONTROLADORA
 
                 if (oMensuales[i].PagoMensual.Count > 0)
                 {
+
                     object mes = oMensuales[i].PagoMensual.LastOrDefault().MesSaldado;
-                    report_string += "<td>" + Convert.ToDateTime(mes+"/01/01").ToString("MMMM", culture).ToUpper() +" ("+mes+")"+ "</td>";
+                    //string fullMonthName = new DateTime(2015, (int)mes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+                    report_string += "<td>" + CultureInfo.CreateSpecificCulture("es").DateTimeFormat.GetMonthName((int)mes).ToUpper() + " (" + mes + ")" + "</td>";
                     report_string += "<td>" + oMensuales[i].PagoMensual.LastOrDefault().Fecha.ToString("dd/MM/yyyy") + "</td>";
                     report_string += "<tr>";
                 }
@@ -282,7 +330,7 @@ namespace CONTROLADORA
             for (int i = 0; i < oMensuales.Count; i++)
             {
 
-                report_string += "<div class='panel panel-default'><div class='panel-heading'><h5> Cod: " + oMensuales[i].Codigo.ToString() + "  -  <b>" + oMensuales[i].NombreApellido.ToString().ToUpper() + "</b></h5></div><div class='panel-body'>";
+                report_string += "<div class='paper'><div class='paper-head'><b>" + oMensuales[i].NombreApellido.ToString().ToUpper() + "</b><span class='paper-codigo'> Cod: " + oMensuales[i].Codigo.ToString() + " </span></div><div class='paper-textarea'>";
                 report_string += "<table><tr>";
                 report_string += "<td colspan='2' style='padding-right: 20px;'><b>Mensualidad: </b>" + oMensuales[i].TipoMensual + "<br/>";
                 report_string += "</tr><tr>";
@@ -321,7 +369,7 @@ namespace CONTROLADORA
                 report_string += "</tr><tr>";
                 report_string += "<td colspan='2' style='padding-right: 20px;'><b>Observaciones: </b>" + oMensuales[i].Observaciones.ToUpper() + "<br/><br/>";
                 report_string += "</tr></table>";
-                report_string += "<p class='text-right' style='font-size: 12px;'><b>Fecha de Alta: </b>" + oMensuales[i].FechaAlta.ToString("dd/MM/yyyy") + "</p></div></div><br/>";
+                report_string += "<p class='text-right' style='font-size: 12px;'><b>Fecha de Alta: </b>" + oMensuales[i].FechaAlta.ToString("dd/MM/yyyy") + "</p></div></div><br/><br/>";
             }
 
             return report_string;

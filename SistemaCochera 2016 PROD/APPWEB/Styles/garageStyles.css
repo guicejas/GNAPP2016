@@ -124,3 +124,89 @@ font-weight: bold;
   vertical-align: top;
 }
 
+
+.paper {
+  font: normal 12px/1.5 "Lucida Grande", arial, sans-serif;
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+  padding: 6px 5px 4px 42px;
+  position: relative;
+  color: #444;
+  line-height: 20px;
+  border: 1px solid #d2d2d2;
+  background: #fff;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+  background: -webkit-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+  background: -moz-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+  background: -ms-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+  background: -o-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+  background: linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+  -webkit-background-size: 100% 20px;
+  -moz-background-size: 100% 20px;
+  -ms-background-size: 100% 20px;
+  -o-background-size: 100% 20px;
+  background-size: 100% 20px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+}
+
+.paper::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  top: 0;
+  left: 30px;
+  bottom: 0;
+  border: 1px solid;
+  border-color: transparent #efe4e4;
+}
+
+.paper-textarea {
+  display: block;
+  width: 94%;
+  margin: 0 auto;
+  padding: 3.8% 0.2%;
+  border: none;
+  outline: none;
+  height: 100%;
+  background: transparent;
+  line-height: 20px;
+}
+
+.paper-head {
+   background-color: #FFF;
+   min-height: 50px;
+   padding-left: 42px;
+   padding-top: 20px;
+   margin-left: -42px;
+   margin-top: -5px;
+   margin-right: -4px;
+   font-size: 20px;
+}
+
+.paper-codigo 
+{
+  display: inline;
+  padding: .2em .6em .3em;
+  margin-left:15px;
+  font-size: 55%;
+  line-height: 1;
+  color: #9f9f9f;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  background-color: #efefef;
+}
+
+
+@media print {
+    .noprint {
+        display: none;
+    }
+}
