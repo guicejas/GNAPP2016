@@ -34,13 +34,13 @@ namespace APPWEB.Garage
 
             newMensual.Activo = true;
             newMensual.Codigo = Convert.ToInt32(txtCodigo.Text);
-            newMensual.NombreApellido = txtNombreyApellido.Text;
-            newMensual.Vehiculo = txtVehiculo.Text;
-            newMensual.Patente = txtPatente.Text;
-            newMensual.Domicilio = txtDomicilio.Text;
-            newMensual.DomicilioFiscal = txtDomicilioFiscal.Text;
+            newMensual.NombreApellido = txtNombreyApellido.Text.ToUpper();
+            newMensual.Vehiculo = txtVehiculo.Text.ToUpper();
+            newMensual.Patente = txtPatente.Text.ToUpper();
+            newMensual.Domicilio = txtDomicilio.Text.ToUpper();
+            newMensual.DomicilioFiscal = txtDomicilioFiscal.Text.ToUpper();
             newMensual.Telefono = txtTelefono.Text;
-            newMensual.RazonSocial = txtRazonSocial.Text;
+            newMensual.RazonSocial = txtRazonSocial.Text.ToUpper();
             newMensual.CUIL = txtCUIL.Text;
             newMensual.TipoFactura = listTipoFactura.SelectedItem.Text;
             newMensual.PrecioSugerido = Convert.ToDecimal(txtPrecioMensualidad.Value);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Globalization;
 
 namespace APPWEB.Garage
 {
@@ -53,10 +54,12 @@ namespace APPWEB.Garage
 
             MODELO.Mensual oMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(nro);
 
+            IFormatProvider culture = new CultureInfo("en-US", true);
+            DateTime fecha = DateTime.ParseExact(txtFechadePago.Value, "dd/MM/yyyy", culture);
 
             if (oMensual.id.ToString().Length > 0 && txtMesPagado.Text.Length > 0 && txtMontoAbonado.Value.Length > 0 && txtFechadePago.Value.Length > 0)
             {
-                CONTROLADORA.ControladoraMensuales.AgregarPagoMensualTransferencia(oMensual, Convert.ToInt32(txtMesPagado.Text), Convert.ToDecimal(txtMontoAbonado.Value), Convert.ToDateTime(txtFechadePago.Value));
+                CONTROLADORA.ControladoraMensuales.AgregarPagoMensualTransferencia(oMensual, Convert.ToInt32(txtMesPagado.Text), Convert.ToDecimal(txtMontoAbonado.Value), fecha);
 
                 Response.Redirect("mensuales.aspx");
             }

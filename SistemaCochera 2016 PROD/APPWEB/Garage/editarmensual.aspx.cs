@@ -80,13 +80,13 @@ protected void Page_Load(object sender, EventArgs e)
             MODELO.Mensual oMensual = CONTROLADORA.ControladoraMensuales.BuscarMensual(Convert.ToInt32(txtCodigo.Text));
 
 
-            oMensual.NombreApellido = txtNombreyApellido.Text;
-            oMensual.Vehiculo = txtVehiculo.Text;
-            oMensual.Patente = txtPatente.Text;
-            oMensual.Domicilio = txtDomicilio.Text;
-            oMensual.DomicilioFiscal =  txtDomicilioFiscal.Text;
+            oMensual.NombreApellido = txtNombreyApellido.Text.ToUpper();
+            oMensual.Vehiculo = txtVehiculo.Text.ToUpper();
+            oMensual.Patente = txtPatente.Text.ToUpper();
+            oMensual.Domicilio = txtDomicilio.Text.ToUpper();
+            oMensual.DomicilioFiscal = txtDomicilioFiscal.Text.ToUpper();
             oMensual.Telefono = txtTelefono.Text;
-            oMensual.RazonSocial = txtRazonSocial.Text;
+            oMensual.RazonSocial = txtRazonSocial.Text.ToUpper();
             oMensual.CUIL = txtCUIL.Text;
             oMensual.TipoFactura = listTipoFactura.SelectedValue;
             oMensual.PrecioSugerido = Convert.ToDecimal(txtPrecioMensualidad.Value);

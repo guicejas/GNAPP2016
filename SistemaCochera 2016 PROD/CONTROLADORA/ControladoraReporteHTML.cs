@@ -273,7 +273,7 @@ namespace CONTROLADORA
             for (int i = 0; i < oMensuales.Count; i++)
             {
 
-                report_string += "<td>"+(i + 1) + "</td><td>" + oMensuales[i].NombreApellido.ToString()+"</td>";
+                report_string += "<td>" + (i + 1) + "</td><td>" + oMensuales[i].NombreApellido.ToString().ToUpper().ToUpper() + "</td>";
 
                 if (oMensuales[i].PagoMensual.Count > 0)
                 {
