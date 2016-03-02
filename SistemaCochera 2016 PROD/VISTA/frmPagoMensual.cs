@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.Objects;
+using System.Globalization;
 
 namespace VISTA
 {
@@ -68,7 +69,7 @@ namespace VISTA
                     lblObservaciones.Text = oMensual.Observaciones;
                     try
                     {
-                        lblUltimoMes.Text = oMensual.PagoMensual.Last().MesSaldado.ToString();
+                        lblUltimoMes.Text = oMensual.PagoMensual.Last().MesSaldado.ToString() + " - " + CultureInfo.CreateSpecificCulture("es").DateTimeFormat.GetMonthName((int)oMensual.PagoMensual.Last().MesSaldado).ToUpper();
                     }
                     catch { }
                     
